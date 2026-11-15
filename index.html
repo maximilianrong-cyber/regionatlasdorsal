@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Anatomie Regionenatlas · Dorsale Regionen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>:root{
+  --bg:#eef0ed; --panel:#f8f9f6; --ink:#1d2421; --muted:#5f6a65; --line:#d4d9d4;
+  --tissue:#d9b8a0; --tissue-ink:#a0715a;
+  --art:#c0392b; --vein:#2f5f9e; --nerve:#b8860b; --musc:#8a4b3b; --bone:#9a8f78;
+  --accent:#1f6b5c; --accent-soft:#d6e8e2; --chip:#e4e8e3;
+  --display:"Newsreader",Georgia,serif; --ui:"Figtree",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141917; --panel:#1b211e; --ink:#e6ebe7; --muted:#9aa6a0; --line:#2c3531;
+  --tissue:#7a5a48; --tissue-ink:#c99a80; --art:#ef6b5b; --vein:#6f9de0; --nerve:#e0b54a; --musc:#d08a75; --bone:#c9bea6;
+  --accent:#5fc0a8; --accent-soft:#1f3a33; --chip:#252d29; color-scheme:dark}}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--ui);font-size:15px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-top:calc(env(safe-area-inset-top,0px) + 20px);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 48px);max-width:1320px;margin:0 auto}
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;margin-bottom:18px}
+header.top h1{font-family:var(--display);font-weight:600;font-size:clamp(26px,3.4vw,38px);line-height:1.05;margin:0;letter-spacing:-.01em}
+header.top p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.legend{display:flex;gap:10px;font-size:12px;color:var(--muted);align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.btn{font:inherit;font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:7px 12px;border-radius:999px;cursor:pointer}
+.btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn:focus-visible,.reg:focus-visible,.hot:focus-visible,.chip:focus-visible,.li:focus-visible,.s3d:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn3d{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:300px minmax(0,1fr);gap:24px;align-items:start}
+aside{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);display:grid;gap:14px}
+.mapcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 6px 4px;position:relative}
+.mapcard .cap{position:absolute;left:12px;top:8px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+svg.body{width:100%;height:auto;display:block;max-height:56vh}
+.sil{fill:var(--tissue);opacity:.42}
+.spine{stroke:var(--tissue-ink);stroke-width:1.2;opacity:.35;fill:none}
+.hot{fill:var(--accent);fill-opacity:.05;stroke:var(--accent);stroke-opacity:.28;stroke-width:1.5;cursor:pointer;transition:fill-opacity .15s}
+.hotdot{fill:var(--ink);opacity:.5;pointer-events:none}
+.hot:hover{fill-opacity:.22;stroke-opacity:.6}
+.hot.on{fill-opacity:.38;stroke-opacity:1}
+.index{display:grid;gap:10px;max-height:34vh;overflow:auto;padding-right:4px}
+.index h3{margin:0 0 4px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.reg{display:flex;justify-content:space-between;gap:8px;width:100%;text-align:left;font:inherit;font-size:13.5px;background:none;border:0;color:var(--ink);padding:5px 8px;border-radius:8px;cursor:pointer}
+.reg:hover{background:var(--chip)}
+.reg.on{background:var(--accent-soft);font-weight:600}
+.reg small{color:var(--muted);font-family:var(--mono);font-size:11px;white-space:nowrap}
+main{min-width:0}
+.rhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:8px 16px;margin-bottom:12px}
+.rhead .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.rhead h2{font-family:var(--display);font-weight:600;font-size:clamp(26px,3.2vw,36px);margin:2px 0 0;line-height:1.1;text-wrap:balance}
+.rhead .de{font-family:var(--display);font-style:italic;color:var(--muted);font-size:18px}
+.nav{display:flex;gap:6px;flex-wrap:wrap}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:16px}
+.hero p{margin:0;font-size:13.5px;color:var(--muted)}
+.in3d{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px}
+.chip{font:inherit;font-size:12.5px;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:3px 10px 3px 8px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip:hover{border-color:var(--accent)}
+.chip .dot{width:8px;height:8px}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.sec{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
+.sec.full{grid-column:1/-1}
+.sec.box{border-left:4px solid var(--accent)}
+.sec h4{margin:0 0 8px;font-family:var(--display);font-size:19px;font-weight:600;line-height:1.2}
+.sec h4 small{font-family:var(--ui);font-size:12px;color:var(--muted);font-weight:500;margin-left:6px}
+.sec p{margin:0 0 8px}.sec p:last-child{margin-bottom:0}
+.sec h5{margin:10px 0 4px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+dl.kv{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:4px 14px;margin:0 0 6px}
+dl.kv dt{color:var(--muted);font-size:13px;padding-top:2px}
+dl.kv dd{margin:0;font-style:italic;font-family:var(--display);font-size:16px}
+ul.l{margin:0;padding-left:18px;display:grid;gap:4px}
+ol.layers{margin:0;padding:0;list-style:none;counter-reset:l;display:grid}
+ol.layers li{counter-increment:l;display:grid;grid-template-columns:26px 1fr;gap:8px;padding:6px 0;border-top:1px dashed var(--line)}
+ol.layers li:first-child{border-top:0}
+ol.layers li::before{content:counter(l);font:500 12px var(--mono);color:var(--tissue-ink);background:var(--chip);border-radius:6px;text-align:center;height:22px;line-height:22px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:6px 8px;border-bottom:1px solid var(--line)}
+td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top;min-width:110px}
+td:first-child{font-weight:600;min-width:150px}
+.note{font-size:13px;color:var(--muted);margin:-2px 0 8px}
+.mn{font-family:var(--display);font-style:italic;font-size:16px;background:var(--accent-soft);padding:10px 12px;border-radius:8px}
+.s3d{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer;border-bottom:1.5px dotted var(--muted);text-align:inherit;line-height:inherit}
+.s3d:hover{background:var(--chip)}
+.s3d.t-A{border-bottom-color:var(--art)}.s3d.t-V{border-bottom-color:var(--vein)}.s3d.t-N{border-bottom-color:var(--nerve)}.s3d.t-M{border-bottom-color:var(--musc)}.s3d.t-B,.s3d.t-C{border-bottom-color:var(--bone)}
+.quiz .q{filter:blur(6px);cursor:pointer;transition:filter .15s;user-select:none}
+.quiz .q.shown{filter:none}
+.quiz .q .s3d{pointer-events:none}
+.quiz .q.shown .s3d{pointer-events:auto}
+.src{font-size:12px;color:var(--muted);margin-top:18px}
+
+/* 3D */
+.v3{position:fixed;inset:0;z-index:40;background:var(--bg);display:grid;grid-template-rows:auto minmax(0,1fr);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.v3bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));border-bottom:1px solid var(--line)}
+.v3bar h2{font-family:var(--display);font-weight:600;font-size:22px;margin:0 auto 0 0}
+.v3bar .grp{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.v3bar .btn{padding:5px 10px;font-size:12.5px}
+.v3bar label.sl{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--muted)}
+.v3bar input[type=range]{width:110px;accent-color:var(--accent)}
+.v3body{display:grid;grid-template-columns:minmax(0,1fr) 340px;min-height:0}
+.v3stage{position:relative;min-height:0;overflow:hidden;background:radial-gradient(ellipse at 50% 40%,var(--panel),var(--bg))}
+.v3stage canvas{display:block;touch-action:none;cursor:grab}
+.v3hud{position:absolute;left:12px;right:12px;bottom:10px;font-size:12px;color:var(--muted);pointer-events:none}
+.lbl{position:absolute;left:0;top:0;pointer-events:none;white-space:nowrap;font-size:12px;font-weight:600;color:var(--muted)}
+.lbl.side{letter-spacing:.1em;text-transform:uppercase;font-size:11px}
+#lblSel{background:var(--ink);color:var(--bg);padding:4px 9px;border-radius:6px;box-shadow:0 2px 10px rgba(0,0,0,.25);transform:translate(12px,-38px)}
+#v3tip{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--line);color:var(--ink);padding:3px 8px;border-radius:6px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.v3side{border-left:1px solid var(--line);display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;min-height:0;background:var(--bg)}
+#v3info{padding:14px 16px;border-bottom:1px solid var(--line);max-height:46vh;overflow:auto}
+#v3info h3{font-family:var(--display);font-size:23px;font-weight:600;margin:2px 0 8px;line-height:1.15}
+.v3type{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+.v3type.t-A{color:var(--art)}.v3type.t-V{color:var(--vein)}.v3type.t-N{color:var(--nerve)}.v3type.t-M{color:var(--musc)}.v3type.t-B,.v3type.t-C{color:var(--bone)}
+.v3regs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0}
+.v3hint{color:var(--muted);font-size:14px;margin:0}
+.quote{font-size:13.5px;border-left:3px solid var(--line);padding:2px 0 2px 10px;margin:6px 0;color:var(--ink)}
+.quote small{display:block;color:var(--muted);font-size:11.5px}
+.v3find{padding:10px 16px;border-bottom:1px solid var(--line);display:grid;gap:8px}
+.v3find input[type=search]{font:inherit;font-size:14px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);width:100%}
+.v3scope{display:block;font-size:12.5px;color:var(--muted)}.v3scope input{vertical-align:-2px;margin:0 6px 0 0;accent-color:var(--accent)}
+.v3ctl{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.v3ctl label.sl{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--muted)}
+.v3ctl input[type=range]{width:100px;accent-color:var(--accent)}
+.v3ctl .btn{padding:4px 10px;font-size:12.5px}
+#v3list{overflow:auto;padding:4px 10px 16px}
+#v3list h4{margin:12px 6px 4px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:6px}
+.li{display:block;width:100%;text-align:left;font:inherit;font-size:14px;background:none;border:0;color:var(--ink);padding:5px 8px;border-radius:7px;cursor:pointer}
+.li:hover{background:var(--chip)}
+.li.on{background:var(--accent-soft);font-weight:600}
+.li.off{opacity:.45}
+#v3msg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--muted);font-size:14px}
+.credit{font-size:11px;color:var(--muted);padding:8px 16px;border-top:1px solid var(--line)}
+.credit a{color:inherit}
+
+@media (max-width:900px){
+  .grid{grid-template-columns:1fr}
+  aside{position:static;grid-template-columns:minmax(0,150px) minmax(0,1fr)}
+  svg.body{max-height:340px}
+  .index{max-height:340px}
+  .cols{grid-template-columns:1fr}
+  .hero{grid-template-columns:1fr}
+  .v3bar{gap:6px;padding-block:8px}
+  .v3bar h2{font-size:18px;flex:1 1 auto;order:-2}
+  #v3close{order:-1;margin-left:auto}
+  .v3bar .btn{padding:4px 9px;font-size:12px}
+  .v3bar .grp.types{display:none}
+  .v3body{grid-template-columns:1fr;grid-template-rows:minmax(0,58%) minmax(0,42%)}
+  .v3side{border-left:0;border-top:1px solid var(--line);display:block;overflow:auto}
+  #v3list{overflow:visible}
+  #v3info{max-height:none}
+  #v3info h3{font-size:19px}
+  .v3hud{display:none}
+}
+@media (max-width:480px){
+  aside{grid-template-columns:1fr}
+  .mapcard{max-width:220px;margin:0 auto}
+  dl.kv{grid-template-columns:1fr}
+  dl.kv dt{margin-top:4px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Anatomie Regionenatlas</h1>
+      <p>Band 2 · Dorsale Regionen · Inhalte aus deinem Skript</p>
+    </div>
+    <div class="tools">
+      <div class="legend"><span><i class="dot" style="background:var(--art)"></i>A</span><span><i class="dot" style="background:var(--vein)"></i>V</span><span><i class="dot" style="background:var(--nerve)"></i>N</span><span><i class="dot" style="background:var(--musc)"></i>M</span></div>
+      <button class="btn btn3d" id="open3d">3D-Modell</button>
+      <button class="btn" id="quizBtn" aria-pressed="false">Abfragemodus</button>
+    </div>
+  </header>
+  <div class="grid">
+    <aside>
+      <div class="mapcard">
+        <span class="cap">Ansicht von hinten</span>
+        <svg class="body" viewBox="0 0 400 900" role="img" aria-label="Körperkarte von hinten, Regionen zum Anklicken">
+          <g id="sil"></g>
+          <g id="hots"></g>
+        </svg>
+      </div>
+      <nav class="index" id="index" aria-label="Regionen"></nav>
+    </aside>
+    <main id="main"></main>
+  </div>
+</div>
+<div class="v3" id="v3" hidden role="dialog" aria-label="3D-Modell">
+  <div class="v3bar">
+    <h2>3D-Modell</h2>
+    <div class="grp" aria-label="Ansicht"><button class="btn" data-view="back">Hinten</button><button class="btn" data-view="front">Vorne</button><button class="btn" data-view="right">Rechts</button><button class="btn" data-view="left">Links</button><button class="btn" data-view="region" id="v3regionBtn" hidden>Region</button><button class="btn" data-view="reset">Ganzer Körper</button></div>
+    <div class="grp types" aria-label="Ebenen"><button class="btn" data-type="S">Haut</button><button class="btn" data-type="M">Muskeln</button><button class="btn" data-type="B">Knochen</button><button class="btn" data-type="A">Arterien</button><button class="btn" data-type="V">Venen</button><button class="btn" data-type="N">Nerven</button></div>
+    <button class="btn" id="v3close">Schließen</button>
+  </div>
+  <div class="v3body">
+    <div class="v3stage" id="v3stage">
+      <div class="lbl side" id="lblR" hidden>rechts</div><div class="lbl side" id="lblL" hidden>links</div><div class="lbl" id="lblSel" hidden></div>
+      <div id="v3tip" hidden></div>
+      <div class="v3hud">Ziehen dreht · Scrollen oder Pinch zoomt · Rechtsklick oder zwei Finger verschieben · Struktur anklicken wählt sie aus</div>
+      <div id="v3msg" hidden></div>
+    </div>
+    <div class="v3side">
+      <div id="v3info"></div>
+      <div class="v3find"><div class="v3ctl"><label class="sl">Muskelschichten <input type="range" id="v3peel" min="0" max="3" step="1" value="0" aria-label="Muskelschichten abtragen"> <span id="v3peelV">alle</span></label><button class="btn" id="v3only" aria-pressed="false">Nur Auswahl</button></div><input id="v3search" type="search" placeholder="Suchen, z. B. radialis oder gluteus" aria-label="Struktur suchen">
+        <label class="v3scope" id="v3scopeWrap" hidden><input type="checkbox" id="v3scope"> Nur Strukturen aus <b id="v3scopeName"></b></label></div>
+      <div id="v3list"></div>
+      <div class="credit">3D-Anatomie: <a href="https://dbarchive.biosciencedbc.jp/en/bodyparts3d/download.html">BodyParts3D</a> © DBCLS, CC BY 4.0, vereinfacht. M. latissimus dorsi, die Nerven und einige Gefäße (z. B. A. glutea, A. occipitalis) sind schematisch ergänzt.</div>
+    </div>
+  </div>
+</div>
+<script src="three.min.js"></script>
+<script src="OrbitControls.js"></script>
+<script>
+const META={"lo":[-0.33500000834465027,-0.0010000000474974513,-0.1462399959564209],"hi":[0.33375000953674316,1.720579981803894,0.14778999984264374],"structs":[{"id":"skin","label":"Haut","type":"S"},{"id":"occipitale","label":"Os occipitale","type":"B"},{"id":"temporale","label":"Os temporale (Proc. mastoideus)","type":"B"},{"id":"cranium","label":"Schädel","type":"B"},{"id":"atlas","label":"Atlas (C1)","type":"B"},{"id":"c7","label":"Vertebra prominens (C7)","type":"B"},{"id":"wirbel","label":"Wirbelsäule","type":"B"},{"id":"sacrum","label":"Os sacrum","type":"B"},{"id":"thorax","label":"Rippen und Sternum","type":"B"},{"id":"clavicula","label":"Clavicula","type":"B"},{"id":"scapula","label":"Scapula","type":"B"},{"id":"humerus","label":"Humerus","type":"B"},{"id":"radius","label":"Radius","type":"B"},{"id":"ulna","label":"Ulna","type":"B"},{"id":"carpus","label":"Ossa carpi","type":"B"},{"id":"metacarpus","label":"Ossa metacarpalia","type":"B"},{"id":"phalmanus","label":"Phalanges (Hand)","type":"B"},{"id":"coxae","label":"Os coxae","type":"B"},{"id":"femur","label":"Femur","type":"B"},{"id":"patella","label":"Patella","type":"B"},{"id":"tibia","label":"Tibia","type":"B"},{"id":"fibula","label":"Fibula","type":"B"},{"id":"calcaneus","label":"Calcaneus","type":"B"},{"id":"tarsus","label":"Ossa tarsi","type":"B"},{"id":"metatarsus","label":"Ossa metatarsalia","type":"B"},{"id":"phalpedis","label":"Phalanges (Fuß)","type":"B"},{"id":"trapezius","label":"M. trapezius","type":"M","layer":1},{"id":"latissimus","label":"M. latissimus dorsi","type":"M","layer":1},{"id":"deltoideus","label":"M. deltoideus","type":"M","layer":1},{"id":"gluteusmax","label":"M. gluteus maximus","type":"M","layer":1},{"id":"splenius","label":"M. splenius capitis","type":"M","layer":2},{"id":"levator","label":"M. levator scapulae","type":"M","layer":2},{"id":"rhombmin","label":"M. rhomboideus minor","type":"M","layer":2},{"id":"rhombmaj","label":"M. rhomboideus major","type":"M","layer":2},{"id":"supraspin","label":"M. supraspinatus","type":"M","layer":2},{"id":"infraspin","label":"M. infraspinatus","type":"M","layer":2},{"id":"teresmin","label":"M. teres minor","type":"M","layer":2},{"id":"teresmaj","label":"M. teres major","type":"M","layer":2},{"id":"subscap","label":"M. subscapularis","type":"M","layer":4},{"id":"serrpostsup","label":"M. serratus posterior superior","type":"M","layer":3},{"id":"serrpostinf","label":"M. serratus posterior inferior","type":"M","layer":3},{"id":"semicap","label":"M. semispinalis capitis","type":"M","layer":3},{"id":"semicerv","label":"M. semispinalis cervicis","type":"M","layer":4},{"id":"oblsup","label":"M. obliquus capitis superior","type":"M","layer":4},{"id":"oblinf","label":"M. obliquus capitis inferior","type":"M","layer":4},{"id":"rectmaj","label":"M. rectus capitis posterior major","type":"M","layer":4},{"id":"rectmin","label":"M. rectus capitis posterior minor","type":"M","layer":4},{"id":"erector","label":"M. erector spinae","type":"M","layer":3},{"id":"triceps","label":"M. triceps brachii","type":"M","layer":2},{"id":"brachiorad","label":"M. brachioradialis","type":"M","layer":2},{"id":"ecrl","label":"M. extensor carpi radialis longus","type":"M","layer":2},{"id":"ecrb","label":"M. extensor carpi radialis brevis","type":"M","layer":2},{"id":"extdig","label":"M. extensor digitorum","type":"M","layer":2},{"id":"extdigmin","label":"M. extensor digiti minimi","type":"M","layer":2},{"id":"ecu","label":"M. extensor carpi ulnaris","type":"M","layer":2},{"id":"supinator","label":"M. supinator","type":"M","layer":3},{"id":"apl","label":"M. abductor pollicis longus","type":"M","layer":3},{"id":"epb","label":"M. extensor pollicis brevis","type":"M","layer":3},{"id":"epl","label":"M. extensor pollicis longus","type":"M","layer":3},{"id":"extind","label":"M. extensor indicis","type":"M","layer":3},{"id":"interdors","label":"Mm. interossei dorsales (Hand)","type":"M","layer":3},{"id":"gluteusmed","label":"M. gluteus medius","type":"M","layer":2},{"id":"gluteusmin","label":"M. gluteus minimus","type":"M","layer":3},{"id":"piriformis","label":"M. piriformis","type":"M","layer":2},{"id":"gemsup","label":"M. gemellus superior","type":"M","layer":2},{"id":"obtint","label":"M. obturator internus","type":"M","layer":2},{"id":"geminf","label":"M. gemellus inferior","type":"M","layer":2},{"id":"quadfem","label":"M. quadratus femoris","type":"M","layer":2},{"id":"tfl","label":"M. tensor fasciae latae","type":"M","layer":1},{"id":"bicepsfem","label":"M. biceps femoris","type":"M","layer":2},{"id":"semitend","label":"M. semitendinosus","type":"M","layer":2},{"id":"semimem","label":"M. semimembranosus","type":"M","layer":2},{"id":"addmag","label":"M. adductor magnus","type":"M","layer":3},{"id":"sartorius","label":"M. sartorius","type":"M","layer":2},{"id":"gracilis","label":"M. gracilis","type":"M","layer":2},{"id":"gastro","label":"M. gastrocnemius","type":"M","layer":1},{"id":"plantaris","label":"M. plantaris","type":"M","layer":2},{"id":"soleus","label":"M. soleus","type":"M","layer":2},{"id":"popliteus","label":"M. popliteus","type":"M","layer":4},{"id":"fdl","label":"M. flexor digitorum longus","type":"M","layer":3},{"id":"tibpost","label":"M. tibialis posterior","type":"M","layer":4},{"id":"fhl","label":"M. flexor hallucis longus","type":"M","layer":3},{"id":"peronlong","label":"M. peroneus longus","type":"M","layer":2},{"id":"fdb","label":"M. flexor digitorum brevis","type":"M","layer":2},{"id":"abdhal","label":"M. abductor hallucis","type":"M","layer":2},{"id":"abddmf","label":"M. abductor digiti minimi (Fuß)","type":"M","layer":2},{"id":"quadplant","label":"M. quadratus plantae","type":"M","layer":3},{"id":"lumbped","label":"Mm. lumbricales (Fuß)","type":"M","layer":3},{"id":"fhb","label":"M. flexor hallucis brevis","type":"M","layer":3},{"id":"addhal","label":"M. adductor hallucis","type":"M","layer":4},{"id":"fdmb","label":"M. flexor digiti minimi (Fuß)","type":"M","layer":3},{"id":"oppdmf","label":"M. opponens digiti minimi (Fuß)","type":"M","layer":4},{"id":"interplant","label":"Mm. interossei plantares","type":"M","layer":4},{"id":"tractus","label":"Tractus iliotibialis","type":"C"},{"id":"achilles","label":"Tendo calcaneus (Achilles-Sehne)","type":"C"},{"id":"memintantebr","label":"Membrana interossea (Unterarm)","type":"C"},{"id":"memintcrur","label":"Membrana interossea (Unterschenkel)","type":"C"},{"id":"avert","label":"A. vertebralis","type":"A"},{"id":"asubcl","label":"A. subclavia","type":"A"},{"id":"trthyr","label":"Truncus thyrocervicalis","type":"A"},{"id":"atranscolli","label":"A. transversa colli","type":"A"},{"id":"asuprascap","label":"A. suprascapularis","type":"A"},{"id":"aaxill","label":"A. axillaris","type":"A"},{"id":"asubscap","label":"A. subscapularis","type":"A"},{"id":"acircscap","label":"A. circumflexa scapulae","type":"A"},{"id":"acirchumpost","label":"A. circumflexa humeri posterior","type":"A"},{"id":"rdeltoid","label":"R. deltoideus (A. thoracoacromialis)","type":"A"},{"id":"abrach","label":"A. brachialis","type":"A"},{"id":"aprofbrach","label":"A. profunda brachii","type":"A"},{"id":"acollrad","label":"A. collateralis radialis","type":"A"},{"id":"acollmed","label":"A. collateralis media","type":"A"},{"id":"acollulnsup","label":"A. collateralis ulnaris superior","type":"A"},{"id":"aulnaris","label":"A. ulnaris","type":"A"},{"id":"aintcomm","label":"A. interossea communis","type":"A"},{"id":"aradialis","label":"A. radialis","type":"A"},{"id":"rcarpdors","label":"Rr. carpales dorsales (Rete carpi dorsale)","type":"A"},{"id":"ametacdors","label":"Aa. metacarpeae dorsales","type":"A"},{"id":"aarcpalmprof","label":"Arcus palmaris profundus","type":"A"},{"id":"aperffem","label":"Aa. perforantes (A. profunda femoris)","type":"A"},{"id":"apopl","label":"A. poplitea","type":"A"},{"id":"atibant","label":"A. tibialis anterior","type":"A"},{"id":"atibpost","label":"A. tibialis posterior","type":"A"},{"id":"aplantmed","label":"A. plantaris medialis","type":"A"},{"id":"aplantlat","label":"A. plantaris lateralis","type":"A"},{"id":"arcplant","label":"Arcus plantaris","type":"A"},{"id":"ametatplant","label":"Aa. metatarseae plantares","type":"A"},{"id":"adigplant","label":"Aa. digitales plantares","type":"A"},{"id":"adorsped","label":"A. dorsalis pedis","type":"A"},{"id":"aarcuata","label":"A. arcuata","type":"A"},{"id":"aperfped","label":"Aa. perforantes (Fuß)","type":"A"},{"id":"ailint","label":"A. iliaca interna","type":"A"},{"id":"afem","label":"A. femoralis","type":"A"},{"id":"vceph","label":"V. cephalica","type":"V"},{"id":"vbasil","label":"V. basilica","type":"V"},{"id":"retevendm","label":"Rete venosum dorsale manus","type":"V"},{"id":"vsaphparva","label":"V. saphena parva","type":"V"},{"id":"vsaphmagna","label":"V. saphena magna","type":"V"},{"id":"vpopl","label":"V. poplitea","type":"V"},{"id":"vtibpost","label":"Vv. tibiales posteriores","type":"V"},{"id":"vglutsup","label":"V. glutea superior","type":"V"},{"id":"vglutinf","label":"V. glutea inferior","type":"V"},{"id":"vpudint","label":"V. pudenda interna","type":"V"},{"id":"viliint","label":"V. iliaca interna","type":"V"},{"id":"vfem","label":"V. femoralis","type":"V"},{"id":"plexvendp","label":"Plexus venosus dorsalis pedis","type":"V"}],"meshes":[[0,0,16779,100676,100674,0],[1,302024,1105,308656,6630,0],[2,321916,638,325744,3816,0],[2,333376,655,337308,3918,0],[3,345144,1152,352056,6900,0],[3,365856,799,370652,4854,0],[3,380360,89,380896,522,0],[3,381940,841,386988,5034,0],[3,397056,239,398492,1422,0],[3,401336,530,404516,3168,0],[3,410852,817,415756,4938,0],[3,425632,90,426172,528,0],[3,427228,833,432228,4986,0],[3,442200,259,443756,1542,0],[3,446840,941,452488,5718,0],[4,463924,336,465940,2040,0],[5,470020,337,472044,2046,0],[6,476136,452,478848,2736,0],[6,484320,460,487080,2760,0],[6,492600,451,495308,2706,0],[6,500720,431,503308,2610,0],[6,508528,593,512088,3558,0],[6,519204,412,521676,2472,0],[6,526620,540,529860,3240,0],[6,536340,314,538224,1884,0],[6,541992,459,544748,2778,0],[6,550304,591,553852,3546,0],[6,560944,378,563212,2268,0],[6,567748,611,571416,3846,0],[6,579108,423,581648,2526,0],[6,586700,549,589996,3432,0],[6,596860,584,600364,3570,0],[6,607504,196,608680,1164,0],[6,611008,462,613780,2760,0],[6,619300,346,621376,2064,0],[6,625504,634,629308,3888,0],[6,637084,239,638520,1428,0],[6,641376,190,642516,1128,0],[6,644772,605,648404,3654,0],[6,655712,298,657500,1764,0],[6,661028,523,664168,3264,0],[6,670696,586,674212,3510,0],[6,681232,278,682900,1656,0],[6,686212,219,687528,1290,0],[6,690108,480,692988,2892,0],[6,698772,189,699908,1122,0],[6,702152,471,704980,2838,0],[6,710656,549,713952,3312,0],[6,720576,165,721568,978,0],[6,723524,647,727408,3942,0],[6,735292,316,737188,1872,0],[6,740932,458,743680,2748,0],[6,749176,560,752536,3360,0],[6,759256,353,761376,2118,0],[6,765612,471,768440,2826,0],[6,774092,429,776668,2598,0],[6,781864,411,784332,2466,0],[6,789264,485,792176,2910,0],[6,797996,393,800356,2382,0],[6,805120,552,808432,3312,0],[6,815056,381,817344,2286,0],[6,821916,463,824696,2778,0],[7,830252,1124,836996,6828,0],[8,850652,622,854384,3792,0],[8,861968,414,864452,2472,0],[8,869396,242,870848,1440,0],[8,873728,146,874604,864,0],[8,876332,482,879224,2880,0],[8,884984,135,885796,798,0],[8,887392,229,888768,1362,0],[8,891492,128,892260,756,0],[8,893772,439,896408,2622,0],[8,901652,376,903908,2244,0],[8,908396,124,909140,732,0],[8,910604,278,912272,1656,0],[8,915584,174,916628,1032,0],[8,918692,498,921680,2976,0],[8,927632,140,928472,828,0],[8,930128,510,933188,3048,0],[8,939284,339,941320,2022,0],[8,945364,127,946128,750,0],[8,947628,360,949788,2148,0],[8,954084,166,955080,984,0],[8,957048,427,959612,2550,0],[8,964712,414,967196,2472,0],[8,972140,242,973592,1440,0],[8,976472,136,977288,804,0],[8,978896,482,981788,2880,0],[8,987548,140,988388,828,0],[8,990044,234,991448,1392,0],[8,994232,132,995024,780,0],[8,996584,438,999212,2616,0],[8,1004444,376,1006700,2244,0],[8,1011188,136,1012004,804,0],[8,1013612,278,1015280,1656,0],[8,1018592,141,1019440,834,0],[8,1021108,498,1024096,2976,0],[8,1030048,146,1030924,864,0],[8,1032652,509,1035708,3042,0],[8,1041792,339,1043828,2022,0],[8,1047872,134,1048676,792,0],[8,1050260,360,1052420,2148,0],[8,1056716,168,1057724,996,0],[8,1059716,196,1060892,1164,0],[9,1063220,187,1064344,1110,0],[9,1066564,186,1067680,1104,0],[10,1069888,1392,1078240,8340,0],[10,1094920,1297,1102704,7770,0],[11,1118244,218,1119552,1296,0],[11,1122144,242,1123596,1440,0],[12,1126476,93,1127036,546,0],[12,1128128,93,1128688,546,0],[13,1129780,99,1130376,582,0],[13,1131540,110,1132200,648,0],[14,1133496,89,1134032,522,0],[14,1135076,100,1135676,588,0],[14,1136852,71,1137280,414,0],[14,1138108,49,1138404,282,0],[14,1138968,70,1139388,408,0],[14,1140204,80,1140684,468,0],[14,1141620,91,1142168,534,0],[14,1143236,69,1143652,402,0],[14,1144456,93,1145016,546,0],[14,1146108,112,1146780,660,0],[14,1148100,74,1148544,432,0],[14,1149408,44,1149672,252,0],[14,1150176,69,1150592,402,0],[14,1151396,97,1151980,570,0],[14,1153120,81,1153608,474,0],[14,1154556,40,1154796,228,0],[15,1155252,107,1155896,630,0],[15,1157156,127,1157920,750,0],[15,1159420,99,1160016,582,0],[15,1161180,135,1161992,798,0],[15,1163588,133,1164388,786,0],[15,1165960,98,1166548,576,0],[15,1167700,120,1168420,708,0],[15,1169836,96,1170412,564,0],[15,1171540,139,1172376,822,0],[15,1174020,133,1174820,786,0],[16,1176392,73,1176832,426,0],[16,1177684,46,1177960,264,0],[16,1178488,60,1178848,348,0],[16,1179544,45,1179816,258,0],[16,1180332,62,1180704,348,0],[16,1181400,48,1181688,276,0],[16,1182240,43,1182500,246,0],[16,1182992,40,1183232,228,0],[16,1183688,58,1184036,336,0],[16,1184708,53,1185028,306,0],[16,1185640,69,1186056,402,0],[16,1186860,58,1187208,336,0],[16,1187880,84,1188384,492,0],[16,1189368,75,1189820,438,0],[16,1190696,59,1191052,342,0],[16,1191736,48,1192024,276,0],[16,1192576,76,1193032,444,0],[16,1193920,70,1194340,408,0],[16,1195156,88,1195684,516,0],[16,1196716,62,1197088,360,0],[16,1197808,100,1198408,588,0],[16,1199584,84,1200088,492,0],[16,1201072,77,1201536,450,0],[16,1202436,82,1202928,480,0],[16,1203888,72,1204320,420,0],[16,1205160,102,1205772,600,0],[16,1206972,83,1207472,486,0],[16,1208444,73,1208884,426,0],[17,1209736,406,1212172,2436,0],[17,1217044,427,1219608,2562,0],[18,1224732,200,1225932,1188,0],[18,1228308,211,1229576,1254,0],[19,1232084,70,1232504,408,0],[19,1233320,70,1233740,408,0],[20,1234556,141,1235404,834,0],[20,1237072,144,1237936,852,0],[21,1239640,64,1240024,372,0],[21,1240768,69,1241184,402,0],[22,1241988,254,1243512,1512,0],[22,1246536,244,1248000,1452,0],[23,1250904,183,1252004,1086,0],[23,1254176,100,1254776,588,0],[23,1255952,147,1256836,870,0],[23,1258576,198,1259764,1176,0],[23,1262116,259,1263672,1542,0],[23,1266756,186,1267872,1104,0],[23,1270080,98,1270668,576,0],[23,1271820,137,1272644,810,0],[23,1274264,190,1275404,1128,0],[23,1277660,268,1279268,1596,0],[24,1282460,159,1283416,942,0],[24,1285300,214,1286584,1272,0],[24,1289128,139,1289964,822,0],[24,1291608,141,1292456,834,0],[24,1294124,143,1294984,846,0],[24,1296676,152,1297588,900,0],[24,1299388,206,1300624,1224,0],[24,1303072,126,1303828,744,0],[24,1305316,139,1306152,822,0],[24,1307796,141,1308644,834,0],[25,1310312,84,1310816,492,0],[25,1311800,52,1312112,300,0],[25,1312712,52,1313024,294,0],[25,1313612,55,1313944,318,0],[25,1314580,77,1315044,450,0],[25,1315944,92,1316496,540,0],[25,1317576,55,1317908,318,0],[25,1318544,51,1318852,282,0],[25,1319416,46,1319692,264,0],[25,1320220,60,1320580,348,0],[25,1321276,64,1321660,372,0],[25,1322404,52,1322716,300,0],[25,1323316,74,1323760,432,0],[25,1324624,66,1325020,384,0],[25,1325788,78,1326256,456,0],[25,1327168,32,1327360,180,0],[25,1327720,60,1328080,348,0],[25,1328776,67,1329180,390,0],[25,1329960,114,1330644,672,0],[25,1331988,96,1332564,564,0],[25,1333692,88,1334220,516,0],[25,1335252,86,1335768,504,0],[25,1336776,89,1337312,522,0],[25,1338356,107,1339000,630,0],[25,1340260,96,1340836,564,0],[25,1341964,88,1342492,516,0],[25,1343524,90,1344064,528,0],[25,1345120,91,1345668,534,0],[26,1346736,782,1351428,4710,0],[26,1360848,783,1365548,4716,0],[26,1374980,592,1378532,3528,0],[26,1385588,592,1389140,3528,0],[26,1396196,801,1401004,4776,0],[26,1410556,798,1415344,4752,0],[28,1424848,395,1427220,2670,0],[28,1432560,400,1434960,2700,0],[28,1440360,205,1441592,1230,0],[28,1444052,205,1445284,1230,0],[28,1447744,306,1449580,1848,0],[28,1453276,311,1455144,1878,0],[29,1458900,370,1461120,2220,0],[29,1465560,377,1467824,2232,0],[30,1472288,520,1475408,3084,0],[30,1481576,520,1484696,3084,0],[31,1490864,395,1493236,2364,0],[31,1497964,394,1500328,2364,0],[32,1505056,225,1506408,1338,0],[32,1509084,224,1510428,1332,0],[33,1513092,562,1516464,3348,0],[33,1523160,559,1526516,3330,0],[34,1533176,173,1534216,1014,0],[34,1536244,172,1537276,1014,0],[35,1539304,162,1540276,960,0],[35,1542196,161,1543164,954,0],[36,1545072,113,1545752,666,0],[36,1547084,111,1547752,654,0],[37,1549060,214,1550344,1260,0],[37,1552864,214,1554148,1260,0],[38,1556668,398,1559056,2742,0],[38,1564540,394,1566904,2718,0],[39,1572340,918,1577848,5472,0],[39,1588792,923,1594332,5514,0],[40,1605360,1148,1612248,6894,0],[40,1626036,1148,1632924,6894,0],[41,1646712,357,1648856,2400,0],[41,1653656,355,1655788,2412,0],[42,1660612,422,1663144,2520,0],[42,1668184,419,1670700,2502,0],[43,1675704,260,1677264,1722,0],[43,1680708,255,1682240,1704,0],[44,1685648,215,1686940,1278,0],[44,1689496,207,1690740,1230,0],[45,1693200,302,1695012,1800,0],[45,1698612,281,1700300,1662,0],[46,1703624,227,1704988,1386,0],[46,1707760,215,1709052,1278,0],[47,1711608,1067,1718012,6282,0],[47,1730576,1070,1736996,6282,0],[47,1749560,553,1752880,3318,0],[47,1759516,554,1762840,3318,0],[47,1769476,278,1771144,1620,0],[47,1774384,277,1776048,1614,0],[47,1779276,1205,1786508,7440,0],[47,1801388,1219,1808704,7512,0],[47,1823728,276,1825384,1644,0],[47,1828672,275,1830324,1638,0],[47,1833600,236,1835016,1404,0],[47,1837824,239,1839260,1422,0],[47,1842104,492,1845056,2934,0],[47,1850924,493,1853884,2934,0],[47,1859752,198,1860940,1206,0],[47,1863352,201,1864560,1224,0],[48,1867008,170,1868028,1008,0],[48,1870044,170,1871064,1008,0],[48,1873080,253,1874600,1506,0],[48,1877612,251,1879120,1494,0],[48,1882108,113,1882788,666,0],[48,1884120,114,1884804,672,0],[49,1886148,322,1888080,1926,0],[49,1891932,322,1893864,1926,0],[50,1897716,165,1898708,978,0],[50,1900664,165,1901656,978,0],[51,1903612,156,1904548,936,0],[51,1906420,152,1907332,912,0],[52,1909156,302,1910968,1896,0],[52,1914760,303,1916580,1908,0],[53,1920396,96,1920972,564,0],[53,1922100,96,1922676,564,0],[54,1923804,279,1925480,2040,0],[54,1929560,147,1930444,906,0],[54,1932256,280,1933936,2064,0],[54,1938064,148,1938952,912,0],[55,1940776,383,1943076,2274,0],[55,1947624,388,1949952,2304,0],[56,1954560,176,1955616,1062,0],[56,1957740,179,1958816,1080,0],[57,1960976,133,1961776,786,0],[57,1963348,132,1964140,780,0],[58,1965700,143,1966560,876,0],[58,1968312,144,1969176,882,0],[59,1970940,106,1971576,612,0],[59,1972800,106,1973436,612,0],[60,1974660,555,1977992,3222,0],[60,1984436,553,1987756,3216,0],[61,1994188,415,1996680,2466,0],[61,2001612,417,2004116,2478,0],[62,2009072,431,2011660,2574,0],[62,2016808,432,2019400,2580,0],[63,2024560,189,2025696,1104,0],[63,2027904,188,2029032,1098,0],[64,2031228,97,2031812,546,0],[64,2032904,97,2033488,546,0],[65,2034580,377,2036844,2250,0],[65,2041344,379,2043620,2262,0],[66,2048144,140,2048984,828,0],[66,2050640,138,2051468,816,0],[67,2053100,232,2054492,1404,0],[67,2057300,232,2058692,1404,0],[68,2061500,189,2062636,1122,0],[68,2064880,189,2066016,1122,0],[69,2068260,339,2070296,2022,0],[69,2074340,339,2076376,2022,0],[69,2080420,149,2081316,882,0],[69,2083080,146,2083956,864,0],[70,2085684,180,2086764,1068,0],[70,2088900,180,2089980,1068,0],[71,2092116,306,2093952,1824,0],[71,2097600,306,2099436,1824,0],[72,2103084,496,2106060,2964,0],[72,2111988,499,2114984,2982,0],[73,2120948,223,2122288,1356,0],[73,2125000,222,2126332,1350,0],[74,2129032,207,2130276,1248,0],[74,2132772,210,2134032,1248,0],[75,2136528,268,2138136,1584,0],[75,2141304,271,2142932,1602,0],[75,2146136,223,2147476,1326,0],[75,2150128,226,2151484,1344,0],[76,2154172,167,2155176,990,0],[76,2157156,167,2158160,990,0],[77,2160140,301,2161948,1806,0],[77,2165560,292,2167312,1752,0],[78,2170816,142,2171668,840,0],[78,2173348,140,2174188,828,0],[79,2175844,298,2177632,1806,0],[79,2181244,304,2183068,1842,0],[80,2186752,531,2189940,3498,0],[80,2196936,532,2200128,3480,0],[81,2207088,200,2208288,1188,0],[81,2210664,201,2211872,1194,0],[82,2214260,274,2215904,1602,0],[82,2219108,273,2220748,1602,0],[83,2223952,369,2226168,2256,0],[83,2230680,374,2232924,2286,0],[84,2237496,158,2238444,996,0],[84,2240436,157,2241380,990,0],[85,2243360,231,2244748,1428,0],[85,2247604,228,2248972,1422,0],[86,2251816,172,2252848,1032,0],[86,2254912,172,2255944,1032,0],[87,2258008,133,2258808,852,0],[87,2260512,132,2261304,852,0],[87,2263008,60,2263368,348,0],[87,2264064,60,2264424,348,0],[87,2265120,82,2265612,546,0],[87,2266704,82,2267196,546,0],[87,2268288,92,2268840,492,0],[87,2269824,92,2270376,492,0],[88,2271360,204,2272584,1260,0],[88,2275104,204,2276328,1260,0],[88,2278848,377,2281112,2124,0],[88,2285360,377,2287624,2124,0],[89,2291872,226,2293228,1368,0],[89,2295964,225,2297316,1368,0],[89,2300052,186,2301168,1176,0],[89,2303520,186,2304636,1176,0],[90,2306988,161,2307956,1026,0],[90,2310008,161,2310976,1014,0],[91,2313004,56,2313340,324,0],[91,2313988,57,2314332,324,0],[92,2314980,125,2315732,738,0],[92,2317208,126,2317964,744,0],[92,2319452,116,2320148,684,0],[92,2321516,117,2322220,690,0],[92,2323600,175,2324652,1050,0],[92,2326752,176,2327808,1050,0],[93,2329908,1321,2337836,7926,0],[93,2353688,1321,2361616,7926,0],[94,2377468,482,2380360,3024,0],[94,2386408,478,2389276,3000,0],[95,2395276,228,2396644,1452,0],[95,2399548,230,2400928,1458,0],[96,2403844,436,2406460,2604,0],[96,2411668,436,2414284,2604,0],[97,2419492,149,2420388,882,0],[97,2422152,150,2423052,888,0],[98,2424828,121,2425556,714,0],[98,2426984,169,2428000,1002,0],[99,2430004,33,2430204,186,0],[99,2430576,38,2430804,216,0],[100,2431236,99,2431832,582,0],[100,2432996,106,2433632,624,0],[100,2434880,295,2436652,1758,0],[100,2440168,300,2441968,1788,0],[101,2445544,128,2446312,756,0],[101,2447824,129,2448600,762,0],[102,2450124,176,2451180,1044,0],[102,2453268,186,2454384,1104,0],[103,2456592,228,2457960,1356,0],[103,2460672,233,2462072,1386,0],[104,2464844,131,2465632,774,0],[104,2467180,130,2467960,768,0],[105,2469496,93,2470056,546,0],[105,2471148,117,2471852,690,0],[105,2473232,84,2473736,492,0],[105,2474720,123,2475460,726,0],[106,2476912,87,2477436,510,0],[106,2478456,90,2478996,528,0],[107,2480052,207,2481296,1230,0],[107,2483756,230,2485136,1368,0],[108,2487872,156,2488808,924,0],[108,2490656,167,2491660,990,0],[109,2493640,90,2494180,528,0],[109,2495236,97,2495820,570,0],[110,2496960,113,2497640,666,0],[110,2498972,126,2499728,744,0],[111,2501216,99,2501812,582,0],[111,2502976,99,2503572,582,0],[112,2504736,455,2507468,2718,0],[112,2512904,471,2515732,2814,0],[113,2521360,131,2522148,774,0],[113,2523696,132,2524488,780,0],[114,2526048,494,2529012,2952,0],[114,2534916,514,2538000,3072,0],[115,2544144,90,2544684,528,0],[115,2545740,91,2546288,534,0],[115,2547356,170,2548376,1008,0],[115,2550392,164,2551376,972,0],[116,2553320,294,2555084,1704,0],[116,2558492,294,2560256,1704,0],[117,2563664,230,2565044,1368,0],[117,2567780,230,2569160,1368,0],[118,2571896,89,2572432,486,0],[118,2573404,407,2575848,2430,0],[118,2580708,89,2581244,486,0],[118,2582216,406,2584652,2424,0],[119,2589500,1109,2596156,6642,0],[119,2609440,1106,2616076,6624,0],[120,2629324,1145,2636196,6858,0],[120,2649912,1151,2656820,6894,0],[121,2670608,868,2675816,5196,0],[121,2686208,873,2691448,5226,0],[122,2701900,114,2702584,672,0],[122,2703928,114,2704612,672,0],[122,2705956,63,2706336,366,0],[122,2707068,68,2707476,396,0],[123,2708268,86,2708784,504,0],[123,2709792,85,2710304,498,0],[124,2711300,125,2712052,738,0],[124,2713528,124,2714272,732,0],[125,2715736,187,2716860,1074,0],[125,2719008,186,2720124,1068,0],[126,2722260,213,2723540,1230,0],[126,2726000,204,2727224,1176,0],[126,2729576,127,2730340,714,0],[126,2731768,144,2732632,780,0],[126,2734192,444,2736856,2592,0],[127,2742040,114,2742724,672,0],[127,2744068,114,2744752,672,0],[128,2746096,156,2747032,924,0],[128,2748880,150,2749780,888,0],[129,2751556,131,2752344,738,0],[129,2753820,129,2754596,726,0],[129,2756048,134,2756852,792,0],[129,2758436,134,2759240,792,0],[130,2760824,74,2761268,432,0],[130,2762132,80,2762612,468,0],[131,2763548,71,2763976,414,0],[131,2764804,64,2765188,372,0],[132,2765932,1494,2774896,8952,0],[132,2792800,1511,2801868,9054,0],[133,2819976,1199,2827172,7182,0],[133,2841536,1212,2848808,7260,0],[134,2863328,287,2865052,1710,0],[134,2868472,285,2870184,1698,0],[135,2873580,1079,2880056,6462,0],[135,2892980,1079,2899456,6462,0],[136,2912380,1983,2924280,11886,0],[136,2948052,1984,2959956,11892,0],[137,2983740,1101,2990348,6594,0],[137,3003536,1097,3010120,6570,0],[138,3023260,911,3028728,5454,0],[138,3039636,914,3045120,5472,0],[139,3056064,100,3056664,588,0],[139,3057840,95,3058412,558,0],[140,3059528,761,3064096,4554,0],[140,3073204,750,3077704,4488,0],[141,3086680,487,3089604,2910,0],[141,3095424,493,3098384,2946,0],[142,3104276,62,3104648,360,0],[142,3105368,60,3105728,348,0],[142,3106424,57,3106768,330,0],[142,3107428,49,3107724,282,0],[142,3108288,62,3108660,360,0],[142,3109380,39,3109616,222,0],[142,3110060,62,3110432,360,0],[142,3111152,53,3111472,306,0],[142,3112084,53,3112404,306,0],[143,3113016,65,3113408,378,0],[143,3114164,70,3114584,408,0],[144,3115400,126,3116156,744,0],[144,3117644,165,3118636,978,0],[144,3120592,126,3121348,744,0],[144,3122836,166,3123832,984,0],[27,3125800,2760,3142360,15930,0],[27,3174220,2760,3190780,15930,0]]};
+const PATHS=[{"id":"noccmaj","label":"N. occipitalis major","type":"N","r":0.0016,"lines":[[[-0.018,1.522,-0.045],[-0.028,1.528,-0.066],[-0.03,1.548,-0.082],[-0.029,1.575,-0.095],[-0.03,1.6,-0.1096],[-0.032,1.63,-0.1168],[-0.035,1.66,-0.1055],[-0.04,1.69,-0.0842]]]},{"id":"noccmin","label":"N. occipitalis minor","type":"N","r":0.0012,"lines":[[[-0.055,1.5,-0.02],[-0.0567,1.53,-0.0218],[-0.0595,1.56,-0.035],[-0.0705,1.6,-0.0591],[-0.0726,1.64,-0.061]]]},{"id":"nocctert","label":"N. occipitalis tertius","type":"N","r":0.001,"lines":[[[-0.012,1.5,-0.06],[-0.013,1.515,-0.08],[-0.013,1.54,-0.0807],[-0.013,1.57,-0.0964],[-0.014,1.6,-0.1138]]]},{"id":"nsubocc","label":"N. suboccipitalis","type":"N","r":0.0011,"lines":[[[-0.022,1.552,-0.038],[-0.03,1.552,-0.05],[-0.036,1.556,-0.058],[-0.04,1.56,-0.064]],[[-0.03,1.552,-0.05],[-0.022,1.545,-0.064]]]},{"id":"aocc","label":"A. occipitalis","type":"A","r":0.0016,"lines":[[[-0.035,1.49,0.02],[-0.048,1.52,-0.005],[-0.052,1.55,-0.035],[-0.045,1.57,-0.07],[-0.034,1.585,-0.092],[-0.03,1.61,-0.1137],[-0.028,1.64,-0.1144],[-0.03,1.67,-0.1012]]]},{"id":"naccess","label":"N. accessorius","type":"N","r":0.0014,"lines":[[[-0.045,1.56,-0.03],[-0.055,1.52,-0.035],[-0.065,1.48,-0.05],[-0.072,1.45,-0.068],[-0.07,1.42,-0.082],[-0.06,1.38,-0.092],[-0.05,1.33,-0.098]]]},{"id":"ndorsscap","label":"N. dorsalis scapulae","type":"N","r":0.0013,"lines":[[[-0.04,1.47,-0.01],[-0.06,1.44,-0.05],[-0.072,1.415,-0.072],[-0.06,1.39,-0.084],[-0.054,1.35,-0.092],[-0.054,1.31,-0.096],[-0.068,1.28,-0.098],[-0.085,1.262,-0.094]]]},{"id":"nsuprascap","label":"N. suprascapularis","type":"N","r":0.0016,"lines":[[[-0.045,1.455,0.0],[-0.068,1.432,-0.006],[-0.085,1.42,-0.018],[-0.098,1.408,-0.032],[-0.112,1.392,-0.045],[-0.128,1.383,-0.05],[-0.14,1.37,-0.052],[-0.138,1.345,-0.062],[-0.128,1.32,-0.068]]]},{"id":"naxill","label":"N. axillaris","type":"N","r":0.0019,"lines":[[[-0.125,1.385,-0.004],[-0.142,1.366,-0.022],[-0.155,1.362,-0.034],[-0.167,1.361,-0.04],[-0.18,1.364,-0.041],[-0.192,1.37,-0.034],[-0.202,1.38,-0.018],[-0.206,1.388,0.0]]]},{"id":"ncutbrlatsup","label":"N. cutaneus brachii lateralis superior","type":"N","r":0.001,"lines":[[[-0.19,1.368,-0.04],[-0.2338,1.35,-0.0571],[-0.2367,1.32,-0.046],[-0.2342,1.29,-0.0346]]]},{"id":"nthoracodors","label":"N. thoracodorsalis","type":"N","r":0.0014,"lines":[[[-0.13,1.385,-0.003],[-0.142,1.35,-0.018],[-0.15,1.31,-0.035],[-0.152,1.27,-0.045],[-0.148,1.23,-0.05]]]},{"id":"nsubscap","label":"N. subscapularis","type":"N","r":0.0012,"lines":[[[-0.125,1.39,-0.004],[-0.12,1.37,-0.03],[-0.115,1.35,-0.045]],[[-0.13,1.38,-0.006],[-0.14,1.33,-0.04],[-0.145,1.3,-0.06]]]},{"id":"nradialis","label":"N. radialis","type":"N","r":0.0022,"lines":[[[-0.13,1.385,-0.005],[-0.148,1.33,-0.022],[-0.162,1.29,-0.03],[-0.174,1.262,-0.036],[-0.186,1.235,-0.048],[-0.197,1.215,-0.051],[-0.207,1.192,-0.044],[-0.216,1.168,-0.03],[-0.222,1.145,-0.015],[-0.226,1.125,-0.003],[-0.229,1.108,0.002]]]},{"id":"nradsup","label":"R. superficialis n. radialis","type":"N","r":0.0013,"lines":[[[-0.229,1.108,0.002],[-0.236,1.08,0.004],[-0.247,1.04,0.0],[-0.255,1.0,-0.002],[-0.262,0.965,0.0],[-0.272,0.935,-0.006],[-0.2763,0.905,0.001],[-0.2809,0.875,0.0086],[-0.2769,0.85,0.0103],[-0.2699,0.82,0.0194]],[[-0.2809,0.875,0.0086],[-0.2944,0.845,0.0168],[-0.2935,0.82,0.0239]]]},{"id":"nradprof","label":"R. profundus n. radialis","type":"N","r":0.0015,"lines":[[[-0.229,1.108,0.002],[-0.236,1.09,-0.01],[-0.24,1.07,-0.022],[-0.24,1.05,-0.03]]]},{"id":"ninterpost","label":"N. interosseus posterior","type":"N","r":0.0011,"lines":[[[-0.24,1.05,-0.03],[-0.241,1.02,-0.026],[-0.241,0.99,-0.02],[-0.243,0.96,-0.016],[-0.247,0.93,-0.012],[-0.252,0.905,-0.008],[-0.256,0.885,-0.002]]]},{"id":"ncutbrpost","label":"N. cutaneus brachii posterior","type":"N","r":0.001,"lines":[[[-0.15,1.33,-0.024],[-0.165,1.31,-0.0995],[-0.172,1.28,-0.0871],[-0.18,1.25,-0.0906],[-0.188,1.22,-0.0908]]]},{"id":"ncutbrlatinf","label":"N. cutaneus brachii lateralis inferior","type":"N","r":0.001,"lines":[[[-0.212,1.18,-0.04],[-0.2476,1.165,-0.0479],[-0.2589,1.14,-0.0316],[-0.2599,1.115,-0.0148]]]},{"id":"ncutantebrpost","label":"N. cutaneus antebrachii posterior","type":"N","r":0.001,"lines":[[[-0.205,1.198,-0.047],[-0.214,1.17,-0.0843],[-0.222,1.13,-0.078],[-0.232,1.08,-0.0708],[-0.24,1.03,-0.057],[-0.246,0.98,-0.041],[-0.25,0.94,-0.0256]]]},{"id":"ncutantebrlat","label":"N. cutaneus antebrachii lateralis","type":"N","r":0.001,"lines":[[[-0.215,1.13,0.01],[-0.209,1.1,0.0058],[-0.2535,1.05,0.0109],[-0.2691,1.0,0.005],[-0.2737,0.95,0.005]]]},{"id":"ncutbrmed","label":"N. cutaneus brachii medialis","type":"N","r":0.001,"lines":[[[-0.14,1.34,0.0],[-0.2125,1.3,0.0123],[-0.2237,1.25,0.0076],[-0.1533,1.18,-0.0174],[-0.1389,1.13,-0.0238]]]},{"id":"ncutantebrmed","label":"N. cutaneus antebrachii medialis","type":"N","r":0.001,"lines":[[[-0.15,1.3,0.0],[-0.1622,1.22,-0.0008],[-0.1474,1.14,-0.0085],[-0.1364,1.07,-0.0137],[-0.1484,1.0,-0.0133],[-0.1634,0.94,-0.0117]]]},{"id":"nulnaris","label":"N. ulnaris","type":"N","r":0.0019,"lines":[[[-0.135,1.37,0.0],[-0.15,1.32,-0.012],[-0.163,1.27,-0.022],[-0.175,1.22,-0.03],[-0.183,1.18,-0.034],[-0.186,1.15,-0.04],[-0.19,1.125,-0.042],[-0.195,1.105,-0.035],[-0.205,1.08,-0.02],[-0.214,1.04,-0.008],[-0.222,1.0,-0.002],[-0.23,0.96,0.002],[-0.236,0.92,0.008],[-0.238,0.89,0.018]]]},{"id":"nulndors","label":"R. dorsalis n. ulnaris","type":"N","r":0.0011,"lines":[[[-0.232,0.95,0.003],[-0.2257,0.92,-0.0099],[-0.2304,0.89,0.0018],[-0.2341,0.86,0.0125],[-0.235,0.83,0.024]]]},{"id":"ainterpost","label":"A. interossea posterior","type":"A","r":0.0011,"lines":[[[-0.217,1.074,-0.022],[-0.226,1.062,-0.03],[-0.236,1.045,-0.033],[-0.238,1.02,-0.03],[-0.238,0.99,-0.024],[-0.24,0.96,-0.02],[-0.244,0.93,-0.016],[-0.249,0.905,-0.011]]]},{"id":"ngluteussup","label":"N. gluteus superior","type":"N","r":0.0016,"lines":[[[-0.026,0.94,-0.046],[-0.04,0.934,-0.054],[-0.055,0.944,-0.06],[-0.072,0.955,-0.058],[-0.09,0.965,-0.048],[-0.108,0.968,-0.034],[-0.122,0.965,-0.02]]]},{"id":"agluteasup","label":"A. glutea superior","type":"A","r":0.0019,"lines":[[[-0.024,0.948,-0.04],[-0.033,0.938,-0.05],[-0.046,0.935,-0.056],[-0.058,0.95,-0.062],[-0.075,0.962,-0.062],[-0.095,0.972,-0.052]],[[-0.058,0.95,-0.062],[-0.06,0.975,-0.075],[-0.065,0.995,-0.085]]]},{"id":"ngluteusinf","label":"N. gluteus inferior","type":"N","r":0.0016,"lines":[[[-0.028,0.928,-0.05],[-0.04,0.905,-0.08],[-0.05,0.89,-0.096],[-0.06,0.875,-0.104],[-0.072,0.868,-0.108]],[[-0.05,0.89,-0.096],[-0.065,0.9,-0.106]]]},{"id":"agluteainf","label":"A. glutea inferior","type":"A","r":0.0018,"lines":[[[-0.024,0.95,-0.026],[-0.034,0.925,-0.058],[-0.045,0.902,-0.086],[-0.052,0.884,-0.1],[-0.058,0.866,-0.098],[-0.062,0.84,-0.082]]]},{"id":"nischiadicus","label":"N. ischiadicus","type":"N","r":0.0042,"lines":[[[-0.03,0.93,-0.045],[-0.05,0.905,-0.072],[-0.068,0.885,-0.08],[-0.082,0.86,-0.075],[-0.086,0.83,-0.064],[-0.084,0.78,-0.052],[-0.081,0.72,-0.046],[-0.079,0.66,-0.044],[-0.078,0.6,-0.046],[-0.078,0.565,-0.05]]]},{"id":"acomitans","label":"A. comitans n. ischiadici","type":"A","r":0.0008,"lines":[[[-0.06,0.875,-0.094],[-0.074,0.86,-0.085],[-0.08,0.83,-0.072],[-0.079,0.78,-0.06],[-0.077,0.72,-0.054],[-0.075,0.66,-0.051]]]},{"id":"ncutfempost","label":"N. cutaneus femoris posterior","type":"N","r":0.0014,"lines":[[[-0.032,0.925,-0.05],[-0.05,0.895,-0.085],[-0.062,0.85,-0.098],[-0.068,0.8,-0.1],[-0.07,0.76,-0.092],[-0.07,0.72,-0.0896],[-0.07,0.66,-0.0863],[-0.07,0.6,-0.0783],[-0.072,0.54,-0.0722],[-0.074,0.48,-0.0759]]]},{"id":"nclunisup","label":"Nn. clunium superiores","type":"N","r":0.001,"lines":[[[-0.03,1.09,-0.0972],[-0.045,1.05,-0.0917],[-0.06,1.01,-0.094],[-0.075,0.97,-0.113]],[[-0.045,1.08,-0.0945],[-0.065,1.04,-0.0883],[-0.085,1.0,-0.0914],[-0.1,0.96,-0.1055]],[[-0.06,1.07,-0.0909],[-0.085,1.035,-0.0788],[-0.11,1.0,-0.0739],[-0.125,0.965,-0.0772]]]},{"id":"nclunimed","label":"Nn. clunium medii","type":"N","r":0.001,"lines":[[[-0.025,0.95,-0.1231],[-0.045,0.935,-0.1329],[-0.065,0.925,-0.1333]],[[-0.022,0.925,-0.1304],[-0.045,0.905,-0.138],[-0.066,0.895,-0.136]],[[-0.02,0.9,-0.1324],[-0.04,0.88,-0.1355],[-0.058,0.865,-0.131]]]},{"id":"ncluniinf","label":"Nn. clunium inferiores","type":"N","r":0.001,"lines":[[[-0.07,0.765,-0.09],[-0.08,0.78,-0.0994],[-0.095,0.8,-0.1029],[-0.11,0.82,-0.1028]],[[-0.068,0.77,-0.09],[-0.06,0.785,-0.094],[-0.055,0.81,-0.0965]]]},{"id":"npudendus","label":"N. pudendus","type":"N","r":0.0016,"lines":[[[-0.026,0.935,-0.048],[-0.036,0.91,-0.064],[-0.044,0.888,-0.072],[-0.045,0.872,-0.07],[-0.04,0.862,-0.058],[-0.03,0.855,-0.04],[-0.018,0.85,-0.024]]]},{"id":"apudint","label":"A. pudenda interna","type":"A","r":0.0014,"lines":[[[-0.022,0.94,-0.038],[-0.033,0.915,-0.062],[-0.041,0.892,-0.073],[-0.043,0.875,-0.068],[-0.038,0.866,-0.056],[-0.028,0.858,-0.038],[-0.015,0.852,-0.022]]]},{"id":"ntibialis","label":"N. tibialis","type":"N","r":0.0032,"lines":[[[-0.078,0.565,-0.052],[-0.077,0.52,-0.054],[-0.076,0.47,-0.054],[-0.076,0.42,-0.05],[-0.073,0.37,-0.048],[-0.068,0.31,-0.047],[-0.063,0.26,-0.045],[-0.06,0.21,-0.043],[-0.057,0.16,-0.05],[-0.056,0.11,-0.053],[-0.055,0.075,-0.048],[-0.056,0.055,-0.038],[-0.058,0.045,-0.025]]]},{"id":"nperoneus","label":"N. peroneus (fibularis) communis","type":"N","r":0.0026,"lines":[[[-0.078,0.565,-0.052],[-0.088,0.52,-0.055],[-0.098,0.48,-0.054],[-0.108,0.45,-0.05],[-0.117,0.425,-0.044],[-0.124,0.405,-0.03],[-0.125,0.393,-0.015],[-0.12,0.385,-0.002]]]},{"id":"nperonsup","label":"N. peroneus superficialis","type":"N","r":0.0014,"lines":[[[-0.12,0.385,-0.002],[-0.124,0.34,-0.008],[-0.123,0.28,-0.008],[-0.118,0.21,-0.004],[-0.11,0.15,0.002],[-0.0859,0.1,0.0058],[-0.0945,0.07,0.039]]]},{"id":"nperonprof","label":"N. peroneus profundus","type":"N","r":0.0013,"lines":[[[-0.12,0.385,-0.002],[-0.112,0.37,0.008],[-0.103,0.33,0.012],[-0.096,0.27,0.014],[-0.09,0.2,0.014],[-0.084,0.13,0.018],[-0.08,0.08,0.026],[-0.082,0.055,0.045]]]},{"id":"ncutsuraemed","label":"N. cutaneus surae medialis","type":"N","r":0.0011,"lines":[[[-0.076,0.47,-0.056],[-0.074,0.44,-0.075],[-0.073,0.4,-0.1019],[-0.071,0.35,-0.1065],[-0.072,0.3,-0.1018],[-0.075,0.25,-0.0897],[-0.079,0.21,-0.079]]]},{"id":"ncutsuraelat","label":"N. cutaneus surae lateralis","type":"N","r":0.0011,"lines":[[[-0.1,0.465,-0.054],[-0.104,0.43,-0.0873],[-0.1,0.38,-0.1025],[-0.093,0.32,-0.1045],[-0.087,0.26,-0.0917],[-0.082,0.21,-0.0782]]]},{"id":"nsuralis","label":"N. suralis","type":"N","r":0.0012,"lines":[[[-0.08,0.21,-0.0788],[-0.083,0.16,-0.0693],[-0.086,0.11,-0.0611],[-0.098,0.07,-0.0585],[-0.1074,0.05,-0.0337],[-0.1217,0.04,-0.01],[-0.1457,0.03,0.02],[-0.154,0.025,0.05]]]},{"id":"aperonea","label":"A. peronea (fibularis)","type":"A","r":0.0014,"lines":[[[-0.071,0.33,-0.042],[-0.082,0.31,-0.04],[-0.09,0.27,-0.038],[-0.094,0.21,-0.036],[-0.094,0.15,-0.036],[-0.092,0.1,-0.038],[-0.09,0.07,-0.042]]]},{"id":"nplantmed","label":"N. plantaris medialis","type":"N","r":0.0014,"lines":[[[-0.058,0.045,-0.025],[-0.064,0.04,-0.012],[-0.07,0.036,0.004],[-0.072,0.032,0.022],[-0.074,0.026,0.045],[-0.076,0.02,0.07]],[[-0.074,0.026,0.045],[-0.065,0.018,0.08],[-0.06,0.012,0.11]],[[-0.074,0.026,0.045],[-0.088,0.018,0.08],[-0.093,0.012,0.11]]]},{"id":"nplantlat","label":"N. plantaris lateralis","type":"N","r":0.0013,"lines":[[[-0.06,0.042,-0.022],[-0.068,0.036,-0.014],[-0.08,0.03,-0.01],[-0.094,0.025,-0.004],[-0.106,0.021,0.004],[-0.116,0.017,0.03],[-0.12,0.013,0.06],[-0.122,0.01,0.09]]]},{"id":"rrdors","label":"Rr. dorsales nn. spinales (Haut\u00e4ste)","type":"N","r":0.0009,"lines":[[[-0.012,1.42,-0.1137],[-0.03,1.41,-0.1202],[-0.055,1.4,-0.1285]],[[-0.012,1.385,-0.1171],[-0.03,1.375,-0.1241],[-0.055,1.365,-0.1354]],[[-0.012,1.35,-0.1164],[-0.03,1.34,-0.1276],[-0.055,1.33,-0.1394]],[[-0.012,1.315,-0.12],[-0.03,1.305,-0.1288],[-0.055,1.295,-0.1349]],[[-0.012,1.28,-0.1187],[-0.03,1.27,-0.1231],[-0.055,1.26,-0.1297]],[[-0.012,1.245,-0.1128],[-0.03,1.235,-0.1193],[-0.055,1.225,-0.1244]]]}];
+const SILHOUETTE="M284.5,894.8 L267.5,894.8 L245.0,892.8 L232.0,893.8 L224.5,892.2 L221.5,890.8 L219.2,888.5 L218.2,885.5 L218.2,879.5 L219.2,877.0 L218.2,851.5 L221.8,835.5 L221.8,802.5 L218.8,768.0 L214.2,743.0 L211.8,721.5 L211.8,704.5 L214.8,676.0 L209.2,643.0 L209.2,589.0 L203.8,543.5 L202.8,504.0 L201.0,502.2 L199.5,502.2 L198.2,503.5 L197.8,531.5 L196.2,552.0 L191.8,585.5 L190.8,612.0 L191.8,640.0 L189.8,656.0 L186.2,671.5 L189.2,710.5 L188.8,722.0 L186.8,741.0 L181.8,770.0 L179.2,798.0 L178.8,833.0 L182.2,850.5 L182.2,886.5 L178.5,891.2 L170.0,893.8 L155.5,892.8 L135.5,894.8 L116.0,894.8 L115.0,893.8 L113.0,893.8 L110.8,891.5 L110.8,889.0 L112.8,885.5 L116.5,882.2 L128.0,876.2 L142.8,857.5 L146.2,844.5 L146.8,837.0 L146.2,829.0 L140.2,791.0 L132.2,750.5 L128.8,718.0 L128.8,705.0 L132.8,664.5 L132.8,647.5 L133.8,638.5 L130.8,628.0 L127.8,608.0 L120.8,577.5 L113.8,506.0 L114.2,466.5 L116.2,442.5 L116.8,420.5 L118.8,404.5 L122.2,390.5 L128.8,352.0 L128.2,335.5 L124.8,319.0 L122.2,296.0 L121.0,294.8 L119.2,296.5 L112.2,320.5 L110.8,346.5 L107.8,363.0 L99.8,391.0 L91.2,415.5 L85.2,440.5 L85.2,446.0 L87.8,459.0 L87.8,484.5 L89.8,497.5 L89.8,509.0 L86.5,511.2 L84.8,510.0 L81.8,499.5 L80.5,498.2 L79.2,499.5 L77.2,514.0 L74.5,516.8 L71.5,517.2 L68.8,514.5 L68.2,505.0 L67.0,503.8 L65.2,506.5 L62.8,519.5 L59.5,523.2 L56.0,523.8 L53.8,519.5 L56.2,499.5 L55.0,497.2 L53.8,498.5 L52.8,503.5 L47.2,514.5 L42.0,519.2 L39.5,519.2 L37.2,517.0 L37.2,514.0 L44.8,486.5 L45.2,481.0 L44.0,479.8 L39.8,485.5 L34.5,489.8 L32.0,489.8 L29.8,486.5 L32.8,478.5 L33.2,472.5 L37.2,465.0 L39.2,456.5 L48.8,443.0 L54.8,438.0 L58.8,406.5 L58.8,348.0 L62.8,325.0 L70.8,295.0 L73.2,279.0 L74.8,261.0 L77.8,246.5 L78.2,222.5 L77.2,211.0 L77.8,202.5 L79.8,193.5 L83.2,185.5 L87.2,179.5 L92.5,173.8 L98.0,169.8 L108.0,165.2 L121.0,161.8 L137.0,153.8 L163.5,138.8 L169.2,132.5 L170.8,127.0 L170.8,114.5 L167.8,105.0 L166.8,95.0 L165.2,90.5 L164.8,82.0 L162.2,76.5 L160.2,66.0 L159.8,53.5 L161.2,44.5 L164.2,36.5 L171.0,27.8 L181.5,20.2 L189.5,16.8 L194.5,15.8 L209.0,16.2 L216.5,18.8 L222.5,22.2 L229.0,27.2 L233.8,32.5 L239.2,43.5 L240.8,53.0 L239.8,70.5 L237.8,78.5 L235.8,82.5 L235.2,91.5 L233.8,96.0 L232.8,105.5 L230.2,112.0 L230.2,128.5 L232.2,133.5 L240.0,140.8 L254.0,148.8 L280.5,161.8 L294.0,165.8 L305.5,171.8 L312.2,178.0 L316.2,183.5 L320.8,193.0 L323.2,207.5 L322.2,241.5 L325.8,259.5 L329.2,291.0 L338.8,328.5 L342.2,351.0 L342.2,412.0 L345.2,434.5 L346.2,438.0 L354.8,446.5 L361.2,456.0 L363.2,465.0 L367.2,472.0 L367.8,478.0 L370.8,485.0 L370.2,488.5 L368.5,489.8 L366.0,489.8 L359.2,483.5 L357.0,480.2 L355.8,481.5 L356.2,488.5 L361.8,510.0 L363.2,513.0 L363.2,517.0 L361.5,519.2 L358.0,518.8 L354.2,515.5 L346.0,498.8 L344.8,500.0 L344.8,501.5 L346.8,521.0 L344.5,523.8 L341.0,523.2 L338.2,520.0 L335.2,505.5 L334.0,504.2 L332.8,505.5 L331.8,515.0 L329.5,517.2 L326.5,517.2 L323.8,514.5 L323.8,511.0 L321.8,505.5 L321.8,498.0 L320.5,496.8 L319.2,498.0 L316.2,509.5 L314.5,511.2 L312.5,510.8 L310.8,508.5 L310.2,503.5 L312.8,485.5 L313.2,456.0 L315.2,447.0 L315.2,439.5 L309.8,416.5 L299.8,387.5 L293.2,364.5 L289.8,344.5 L288.2,319.5 L281.2,296.5 L280.0,295.2 L278.2,297.0 L276.2,316.0 L272.2,337.5 L272.2,356.0 L276.8,377.5 L278.2,390.0 L281.8,403.5 L284.2,424.5 L284.2,441.5 L286.2,463.0 L286.8,480.0 L286.8,511.5 L279.2,581.5 L273.2,606.5 L270.2,626.5 L266.8,638.5 L267.8,645.5 L267.8,662.0 L271.8,702.5 L271.8,720.5 L269.2,745.0 L260.8,788.0 L255.8,820.5 L254.2,832.0 L254.2,842.5 L255.8,850.0 L257.8,854.5 L257.8,857.5 L265.8,868.5 L274.5,877.8 L284.0,882.2 L288.8,886.5 L290.2,890.5 L289.8,892.0 L284.5,894.8Z";
+const REGIONS = [
+{
+ id:"nuchae", name:"Regio nuchae", short:"Nacken", group:"Kopf & Rumpf", page:2,
+ focus:"nuchae",
+ blocks:[
+  {t:"kv", h:"1. Grenzen", rows:[["superior","Protuberantia occipitalis externa"],["lateral","Processus mastoideus"],["inferior","Vertebra prominens"]]},
+  {t:"list", h:"2. Hautinnervation", items:["N. occipitalis minor (Plexus cervicalis)","N. occipitalis major (Ramus dorsalis vom zweiten zervikalen Spinalnerv!)","N. occipitalis tertius (Ramus dorsalis vom dritten zervikalen Spinalnerv!)"]},
+  {t:"text", h:"3. Oberflächliche Strukturen", p:["Unter der Haut finden wir die Fascia nuchae superficialis. Sie ist die Fortsetzung der Lamina superficialis der Fascia cervicalis und bedeckt die Nackenmuskulatur. Zwischen der Haut und der Faszie finden wir die Hautnerven."]},
+  {t:"text", h:"4. Muskeln", full:true, p:["M. trapezius (innerviert vom N. accessorius); darunter finden wir den M. splenius capitis. Unter diesem den M. semispinalis capitis, welcher vom N. occipitalis major und dem N. occipitalis tertius durchbohrt wird. Zusammen mit den Nerven verläuft die A. occipitalis (stammt von der A. carotis externa ab).","Unter dem M. semispinalis capitis finden wir den M. semispinalis cervicis und die Fascia nuchae profunda, welche die Muskeln des Trigonum suboccipitale bedeckt (unter dieser Faszienschicht befindet sich die Membrana atlantooccipitalis posterior)."]},
+  {t:"box", h:"Trigonum suboccipitale", rows:[["inferior","M. obliquus capitis inferior"],["superior","M. obliquus capitis superior"],["medial","Mm. rectus capitis posterior major et minor"]],
+   p:["Die Muskeln werden vom N. suboccipitalis innerviert (Ramus dorsalis vom ersten zervikalen Spinalnerv).","Tief im Trigonum suboccipitale finden wir die A. vertebralis, welche entlang des Arcus posterior des Atlas läuft. Sie durchbohrt die Membrana atlantooccipitalis posterior und gelangt via das Foramen magnum in den Schädel."]},
+  {t:"layers", h:"Kurze Zusammenfassung der Schichten", items:["Haut","Fascia nuchae superficialis","M. trapezius","M. splenius capitis","M. semispinalis capitis","Fascia nuchae profunda","Trigonum suboccipitale und M. semispinalis cervicis"]},
+  {t:"list", h:"6. Lymphknoten", items:["Nodi lymphatici occipitales"]},
+  {t:"list", h:"7. Klinischer Hinweis", items:["Bei einer Zisternenpunktion wird die Membrana atlantooccipitalis posterior durchstochen."]}
+ ]
+},
+{
+ id:"scapulae", name:"Regio dorsalis scapulae", short:"Schulterblatt", group:"Kopf & Rumpf", page:3,
+ focus:"scapulae",
+ blocks:[
+  {t:"kv", h:"1. Grenzen", rows:[["superior","Verbindungslinie zwischen dem Acromion und dem ersten Brustwirbel"],["medial","Margo medialis scapulae"],["inferior","Angulus inferior (horizontale Linie)"],["lateral","Acromion (vertikale Linie)"]]},
+  {t:"list", h:"2. Hautinnervation", items:["Rami dorsales nervi spinales (C VI–VII und Th I–VI)"]},
+  {t:"text", h:"3. Oberflächliche Strukturen", p:["Unter der Haut befindet sich die Faszie des M. trapezius. Zwischen der Haut und der Faszie finden wir die hautinnervierenden Nerven. Unter dem M. trapezius sehen wir die Fascia supraspinata und Fascia infraspinata."]},
+  {t:"table", h:"4. Muskeln", full:true, cols:["Name","Ursprung","Ansatz","Innervation","Funktion"], rows:[
+   ["M. supraspinatus","Fossa supraspinata","Tuberculum majus (oberer Teil)","N. suprascapularis (Truncus superior, Plexus brachialis)","Abduktion des Armes"],
+   ["M. infraspinatus","Fossa infraspinata","Tuberculum majus (mittlerer Teil)","N. suprascapularis","Adduktion und Außenrotation des Armes"],
+   ["M. teres minor","Margo lateralis scapulae","Tuberculum majus (unterer Teil)","N. axillaris (Fasciculus posterior)","Außenrotation"],
+   ["M. teres major","Angulus inferior scapulae","Crista tuberculi minoris","N. subscapularis (Fasciculus posterior)","Innenrotation, Adduktion, Retroflexion"],
+   ["M. latissimus dorsi","Processus spinosus der unteren Brustwirbel, Fascia thoracolumbalis, Labium externum der Crista iliaca, 3 untere Rippen","Crista tuberculi minoris","N. thoracodorsalis (Fasciculus posterior)","Retroflexion, Innenrotation, Adduktion · „Fracktaschenmuskel“"],
+   ["M. levator scapulae","Processus transversus der oberen Halswirbel","Angulus superior scapulae","N. dorsalis scapulae (Truncus superior, Plexus brachialis)","Hebt die Scapula"],
+   ["M. rhomboideus minor","Processus spinosus des 6.–7. Halswirbels","Margo medialis scapulae","N. dorsalis scapulae","Zieht die Scapula nach hinten, medial und oben, fixiert die Scapula"],
+   ["M. rhomboideus major","Processus spinosus des 1.–4. Brustwirbels","Margo medialis scapulae","N. dorsalis scapulae","Zieht die Scapula nach hinten, medial und oben, fixiert die Scapula"],
+   ["M. trapezius","An den Procc. spinosi und an ihren Bändern von der Protuberantia occipitalis bis zum 12. Brustwirbel","Spina scapulae, Acromion, laterales Drittel der Clavicula","N. accessorius (XI. Hirnnerv)","Hebt, senkt und fixiert die Scapula, Rotation"]]},
+  {t:"box", h:"Hiatus axillaris lateralis", note:"viereckige Form", rows:[["superior posterior","M. teres minor"],["inferior anterior","M. teres major"],["lateral","Humerus"],["medial","Caput longum m. tricipitis brachii"]],
+   items:["A. circumflexa humeri posterior (← A. axillaris)","N. axillaris (← Fasciculus posterior, Plexus brachialis)"], itemsH:"Strukturen des Hiatus"},
+  {t:"box", h:"Hiatus axillaris medialis", note:"dreieckige Form", rows:[["superior posterior","M. teres minor"],["inferior","M. teres major"],["lateral","Caput longum m. tricipitis brachii"]],
+   items:["A. circumflexa scapulae (← A. subscapularis ← A. axillaris)"], itemsH:"Strukturen des Hiatus"},
+  {t:"list", h:"5. Nerven", items:["N. accessorius (XI. Kranialnerv): finden wir medial unterhalb des M. trapezius","N. dorsalis scapulae (Truncus superior): verläuft zusammen mit der A. transversa colli (← A. subclavia), welche wir unterhalb der Mm. rhomboidei finden","N. suprascapularis (Truncus superior): verläuft unterhalb des Ligamentum transversum scapulae superius (Incisura scapulae) und des Ligamentum transversum scapulae inferius"]},
+  {t:"text", h:"6. Gefäße", p:["Die A. suprascapularis ist ein Ast des Truncus thyrocervicalis (← A. subclavia), welche zusammen mit dem N. suprascapularis zu finden ist. Die Arterie verläuft oberhalb des Ligamentum transversum scapulae superius.","Sie macht eine Anastomose mit der A. circumflexa scapulae (← A. subscapularis ← A. axillaris). So entsteht eine kollaterale Verbindung zwischen der A. subclavia und der A. axillaris, die Rete arteriosum scapulae genannt wird."]},
+  {t:"list", h:"7. Lymphknoten", items:["Nodi lymphatici subscapulares","Nodi lymphatici infraclaviculares"]},
+  {t:"list", h:"8. Klinische Hinweise", items:["Bei einem Verschluss der A. subclavia nach der Abzweigung des Truncus thyrocervicalis gelangt das Blut via Rete arteriosum scapulae zur A. axillaris."]}
+ ]
+},
+{
+ id:"ruecken", name:"Rückenmuskulatur", short:"Rücken", group:"Kopf & Rumpf", page:4,
+ focus:"ruecken",
+ blocks:[
+  {t:"text", h:"Oberflächliche Rückenmuskeln", p:["Zu den oberflächlichen Rückenmuskeln gehören 4 Muskeln. Sie nehmen an den Bewegungen der oberen Extremität teil."]},
+  {t:"table", h:"Muskeln", full:true, cols:["Muskel","Ursprung","Ansatz","Funktion","Innervation"], rows:[
+   ["M. trapezius","An den Procc. spinosi und an ihren Bändern von der Protuberantia occipitalis bis zum 12. Brustwirbel","Spina scapulae · Acromion · laterales Drittel der Clavicula","siehe unten","N. accessorius"],
+   ["M. levator scapulae","Am Processus transversus des 4. Halswirbels","Angulus superior scapulae","Hebt die Scapula","N. dorsalis scapulae"],
+   ["M. rhomboideus major et minor","Procc. spinosi des 6.–7. Halswirbels und des 1.–4. Brustwirbels","Margo medialis scapulae","Zieht die Scapula nach hinten und nach oben, fixiert die Scapula","N. dorsalis scapulae"],
+   ["M. latissimus dorsi","Procc. spinosi des 6.–12. Brustwirbels und des 1.–5. Lendenwirbels · Fascia thoracolumbalis · Labium externum der Crista iliaca · Dorsalfläche des Sacrum · untere 3 Rippen","Crista tuberculi minoris humeri","Adduktion, Retroflexion, Innenrotation des Armes","N. thoracodorsalis"],
+   ["M. serratus posterior superior","Procc. spinosi des 6. und 7. Halswirbels und des 1. und 2. Brustwirbels","2.–5. Rippe","Hilft bei der Inspiration mit, hebt die Rippen","Nn. intercostales I–IV"],
+   ["M. serratus posterior inferior","Dornfortsätze des 11. und 12. Brustwirbels sowie des 1. und 2. Lendenwirbels","9.–12. Rippe","Hilft bei der Inspiration mit, senkt die Rippen","Nn. intercostales IX–XII"]]},
+  {t:"list", h:"Funktion des M. trapezius", full:true, items:[
+   "Bei fixiertem Kopf und Rumpf: die beidseitigen Muskeln ziehen den Schultergürtel nach hinten und nach innen, die Scapulae werden einander genähert",
+   "Bei fixiertem Kopf: Pars descendens zieht den Schultergürtel aufwärts",
+   "Bei fixiertem Schultergürtel: Pars descendens zieht den Kopf nach hinten",
+   "Bei fixiertem Kopf: Pars descendens von einer Seite zieht die gleichseitige Schulter nach oben",
+   "Bei fixiertem Schultergürtel: einseitige Pars descendens biegt den Kopf zur gleichen Seite, dreht ihn zur Gegenseite",
+   "Die Pars transversa nähert die Scapula der Wirbelsäule",
+   "Die Pars ascendens von beiden Seiten ziehen die Scapulae zueinander und abwärts",
+   "Bei fixierter Scapula: Heben des Rumpfes"]},
+  {t:"text", h:"M. erector spinae = autochthone Muskulatur", p:["Er entspringt an der Dorsalfläche des Sacrum und der Crista iliaca, zieht hinter der Wirbelsäule und liegt auf dem Achsenskelett. Er ist für die Sicherung der aufrechten Körperhaltung zuständig und wird von Rr. dorsales der Spinalnerven versorgt. Man kann ein mediales und ein laterales Muskelbündel unterscheiden."]},
+  {t:"text", h:"Fascia thoracolumbalis", p:["Sie umschließt die gesamte autochthone Rückenmuskulatur. Sie besteht aus einem oberflächlichen und einem tiefen Faszienblatt. Ihr oberflächliches Blatt ist an den Dornfortsätzen der Lendenwirbel und am Sacrum befestigt, ihr tiefes Blatt an den Procc. costales.","Die Blätter vereinigen sich miteinander an der lateralen Seite, dadurch entsteht ein osteofibröser Kanal für den M. erector spinae. Außerdem dient sie als Ursprung für den M. latissimus dorsi, M. gluteus maximus, M. obliquus internus abdominis und M. transversus abdominis."]}
+ ]
+},
+{
+ id:"deltoidea", name:"Regio deltoidea", short:"Schulter", group:"Arm", page:5,
+ focus:"deltoidea",
+ blocks:[
+  {t:"kv", h:"1. Grenzen", rows:[["anterior","Sulcus deltoideopectoralis"],["posterior","hintere Grenze des M. deltoideus"],["medial","mediale Grenze des M. deltoideus"],["lateral","laterale Grenze des M. deltoideus"]]},
+  {t:"list", h:"2. Hautinnervation", items:["N. cutaneus brachii lateralis superior (← N. axillaris ← Fasciculus posterior ← Plexus brachialis)","N. supraclavicularis lateralis (Plexus cervicalis)"]},
+  {t:"text", h:"3. Oberflächliche Strukturen", full:true, p:["Direkt unter der Haut findet man die Faszie des M. deltoideus, die den M. deltoideus bedeckt.","Der Sulcus deltoideopectoralis enthält die V. cephalica und den Ramus deltoideus der A. thoracoacromialis.","Schneidet man den M. deltoideus durch, erscheinen die Hauptstrukturen der Region: N. axillaris (← Fasciculus posterior ← Plexus brachialis) und A. circumflexa humeri posterior (Zweig des dritten Teils der A. axillaris). Sie treten durch den Hiatus axillaris lateralis ein."]},
+  {t:"table", h:"M. deltoideus", full:true, cols:["Teil","Ursprung"], rows:[["Pars clavicularis","acromiales Drittel der Clavicula"],["Pars acromialis","Acromion"],["Pars spinalis","Spina scapulae"]], after:["Ansatz: Tuberositas deltoidea · Innervation: N. axillaris"]},
+  {t:"box", h:"Hiatus axillaris lateralis", rows:[["superior","M. teres minor"],["inferior","M. teres major"],["medial","Caput longum vom M. triceps brachii"],["lateral","Humerus"]]},
+  {t:"text", h:"Bursa und Rotatoren", p:["Man findet eine Bursa zwischen dem Tuberculum majus (Humerus) und dem M. deltoideus, die Bursa subdeltoidea.","Am Tuberculum majus setzen die Mm. supraspinatus, infraspinatus et teres minor an."]},
+  {t:"table", h:"Funktion", cols:["Muskel","Funktion"], rows:[["M. supraspinatus","Abduktion"],["M. infraspinatus","Außenrotation"],["M. teres minor","Außenrotation"]],
+   after:["Die Mm. latissimus dorsi, teres major et subscapularis führen die Innenrotation aus (die Hand kann mit Hilfe des M. latissimus dorsi in die hintere Hosentasche gesteckt werden)."]},
+  {t:"box", h:"Hiatus axillaris medialis", rows:[["superior","M. teres minor"],["inferior","M. teres major"],["lateral","M. triceps brachii, Caput longum"]],
+   p:["Schneidet man den M. deltoideus durch, sieht man den Hiatus axillaris medialis und lateralis und das Caput longum des M. triceps brachii, das diese voneinander trennt.","Die A. circumflexa scapulae verläuft durch den Hiatus axillaris medialis."]}
+ ]
+},
+{
+ id:"brachii", name:"Regio brachii posterior", short:"Oberarm hinten", group:"Arm", page:6,
+ focus:"brachii",
+ blocks:[
+  {t:"kv", h:"1. Grenzen", rows:[["superior","M. latissimus dorsi (hintere Achselfalte)"],["inferior","3 Finger oberhalb des Olecranon"],["medial","Sulcus bicipitalis medialis"],["lateral","Sulcus bicipitalis lateralis"]]},
+  {t:"list", h:"2. Hautinnervation", items:["N. cutaneus brachii posterior (← N. radialis ← Fasciculus posterior ← Plexus brachialis)"]},
+  {t:"text", h:"3. Oberflächliche Strukturen", p:["Unter der Haut befindet sich die Fascia brachii, welche den M. triceps brachii bedeckt."]},
+  {t:"text", h:"4. Muskeln", p:["In der Region ganz oben sieht man noch einen Teil des M. deltoideus. Der Hauptmuskel dieser Region ist der M. triceps brachii.","Das Caput laterale m. tricipitis brachii befindet sich lateral, das Caput mediale medial vom Sulcus nervi radialis. Der Ursprung des Caput longum ist das Tuberculum infraglenoidale.","Alle drei Köpfe vereinigen sich zu einer Sehne, welche am Olecranon ulnae ansetzt."]},
+  {t:"kv", h:"M. triceps brachii", rows:[["Caput longum","Ursprung: Tuberculum infraglenoidale"],["Caput laterale","lateral vom Sulcus nervi radialis"],["Caput mediale","medial vom Sulcus nervi radialis"],["Ansatz","Olecranon ulnae"],["Innervation","N. radialis"],["Funktion","Extension des Ellenbogengelenks, Caput longum: Retroversion"]]},
+  {t:"text", h:"5. Gefäße und Nerven", p:["Im Sulcus nervi radialis läuft der N. radialis zusammen mit der A. profunda brachii (← A. brachialis).","Die Äste des N. radialis sind N. cutaneus brachii et antebrachii posterior und N. cutaneus brachii lateralis inferior.","Äste der A. profunda brachii sind A. collateralis radialis et media, welche an der Bildung des Rete articulare cubiti beteiligt sind."]},
+  {t:"list", h:"6. Lymphknoten", items:["Nodi lymphatici axillares centrales","Nodi lymphatici axillares laterales"]},
+  {t:"list", h:"7. Klinische Hinweise", items:["Frakturen des Humerus können den N. radialis betreffen. Symptom einer Verletzung des N. radialis ist die Fallhand, weil die Extensoren der Hand nicht funktionieren und der Muskeltonus der Flexoren verstärkt ist."]},
+  {t:"mn", text:"„Ich schwöre (Schwurhand) beim heiligen Medianus (N. medianus), dass ich der Ulnar (N. ulnaris) die Augen auskratzen (Krallhand) werde, wenn ich vom Rad (N. radialis) falle (Fallhand).“"}
+ ]
+},
+{
+ id:"cubiti", name:"Regio cubiti posterior", short:"Ellenbogen hinten", group:"Arm", page:6,
+ focus:"cubiti",
+ blocks:[
+  {t:"kv", h:"1. Grenzen", rows:[["superior","drei Finger oberhalb der Ellenbogenbeuge"],["inferior","drei Finger unterhalb der Ellenbogenbeuge"],["lateral","Epicondylus lateralis"],["medial","Epicondylus medialis"]]},
+  {t:"list", h:"2. Hautinnervation", items:["N. cutaneus antebrachii posterior (← N. radialis)","N. cutaneus brachii medialis (← Fasciculus medialis)","N. cutaneus antebrachii medialis (← Fasciculus medialis)","N. cutaneus antebrachii lateralis (← N. musculocutaneus ← Fasciculus lateralis)"]},
+  {t:"text", h:"3. Oberflächliche Strukturen", p:["Nach der Entfernung der Haut sieht man die Hautnerven und die Faszie, welche eine Fortsetzung der Fascia brachii in die Fascia antebrachii ist."]},
+  {t:"text", h:"4. Muskulatur", p:["Unter der Faszie befindet sich die Muskulatur der Extensoren und Flexoren, welche vom Epicondylus medialis und vom Epicondylus lateralis des Humerus entspringen, mit dem Ansatz des M. triceps brachii am Olecranon.","Im Sulcus nervi ulnaris an der medialen Seite der Region verläuft der N. ulnaris, welcher von der A. collateralis ulnaris superior begleitet wird (diese kommt von der A. brachialis)."]},
+  {t:"list", h:"Am Epicondylus lateralis entspringen", items:["M. extensor carpi radialis brevis","M. supinator","M. extensor digitorum","M. extensor digiti minimi","M. extensor carpi ulnaris"]}
+ ]
+},
+{
+ id:"antebrachii", name:"Regio antebrachii posterior", short:"Unterarm hinten", group:"Arm", page:7,
+ focus:"antebrachii",
+ blocks:[
+  {t:"kv", h:"1. Grenzen", rows:[["superior","3 Finger unterhalb der Ellenbogenbeuge"],["inferior","Verbindungslinie zwischen Proc. styloideus der Ulna und des Radius"],["lateral","eine vertikale Linie durch den Epicondylus lateralis"],["medial","eine vertikale Linie durch den Epicondylus medialis"]]},
+  {t:"list", h:"2. Hautinnervation", items:["N. cutaneus antebrachii lateralis (← N. musculocutaneus ← Fasciculus lateralis ← Plexus brachialis)","N. cutaneus antebrachii posterior (← N. radialis ← Fasciculus posterior ← Plexus brachialis)"]},
+  {t:"text", h:"3. Oberflächliche Strukturen", p:["Im distalen Drittel der Region befinden sich die V. cephalica und V. basilica, der Ramus superficialis n. radialis und der Ramus dorsalis n. ulnaris. Darunter befindet sich die Fascia antebrachii."]},
+  {t:"table", h:"4. Muskeln", full:true, note:"Die Muskeln dieser Region sind die Unterarmextensoren. Diese werden vom N. radialis innerviert. Die Aufzählung der Muskeln sollte von radial nach ulnar präsentiert werden.", cols:["Name","Ursprung","Ansatz","Funktion"], rows:[
+   ["M. brachioradialis","oberhalb des Epicondylus lateralis","Processus styloideus radii","Flexion im Art. cubiti"],
+   ["M. extensor carpi radialis longus","oberhalb des Epicondylus lateralis","Basis des II. Metacarpus auf dem Handrücken","Dorsalflexion, Radialabduktion"],
+   ["M. extensor carpi radialis brevis","Epicondylus lateralis","Basis des III. Metacarpus auf dem Handrücken","Dorsalflexion, Radialabduktion"],
+   ["M. extensor digitorum","Epicondylus lateralis","Dorsale Seite der II.–V. Finger an der Basis der Mittel- und Endglieder","Dorsalflexion"],
+   ["M. extensor digiti minimi","Epicondylus lateralis","schließt sich der dorsalen Sehne des V. Fingers an","streckt den V. Finger"],
+   ["M. extensor carpi ulnaris","Epicondylus lateralis","Basis des V. Metacarpus auf dem Handrücken","Dorsalflexion, Ulnarabduktion"],
+   ["M. supinator","Epicondylus lateralis","Radius (Crista m. supinatoris)","Supination"],
+   ["M. abductor pollicis longus","mittleres Drittel der Ulna, Membrana interossea","Basis des Metacarpus des Daumens","Abduktion des Daumens"],
+   ["M. extensor pollicis brevis","Membrana interossea, mittleres Drittel des Radius","Basis des Grundgliedes des Daumens","Extension des Daumens"],
+   ["M. extensor pollicis longus","mittleres Drittel der Ulna, Membrana interossea","Basis des Endgliedes des Daumens","Extension des Daumens"],
+   ["M. extensor indicis","unteres Drittel der Ulna","schließt sich der dorsalen Sehne des II. Fingers an","Extension des Zeigefingers"]]},
+  {t:"text", h:"5. Gefäße und Nerven", p:["Der Ramus profundus n. radialis durchbohrt den M. supinator.","Die A. interossea posterior (← A. interossea communis ← A. ulnaris) durchbohrt die Membrana interossea. Der N. interosseus posterior, Ast des R. profundus n. radialis, verläuft gemeinsam mit der Arterie."]},
+  {t:"list", h:"6. Lymphknoten", items:["Nodi lymphatici cubitales"]},
+  {t:"list", h:"7. Klinische Hinweise", items:["Starke Benutzung der Unterarmextensoren kann eine Entzündung des Epicondylus lateralis hervorrufen (Epicondylitis lateralis, „Tennisarm“)."]}
+ ]
+},
+{
+ id:"carpi", name:"Regio carpi posterior", short:"Handgelenk hinten", group:"Hand", page:8,
+ focus:"carpi",
+ blocks:[
+  {t:"kv", h:"1. Grenzen", rows:[["superior","Caput ulnae"],["inferior","Basen der Metacarpi"],["medial","Verlängerung des medialen Randes der Hand"],["lateral","Verlängerung des lateralen Randes der Hand"]]},
+  {t:"kv", h:"2. Hautinnervation", rows:[["radial","Ramus superficialis n. radialis"],["ulnar","Ramus dorsalis n. ulnaris"]]},
+  {t:"text", h:"3. Oberflächliche Strukturen", p:["Unter der Haut sehen wir das Rete venosum dorsale manus, aus dem die V. cephalica und V. basilica hervorgehen. Ebenfalls sehen wir die hautinnervierenden Nerven und darunter die Fascia antebrachii, deren verstärkter Teil Retinaculum extensorum genannt wird. Das Retinaculum extensorum bildet sechs Sehnenfächer."]},
+  {t:"box", h:"Sehnenfächer der Extensoren", note:"von radial nach ulnar", rows:[["I.","M. abductor pollicis longus et M. extensor pollicis brevis"],["II.","M. extensor carpi radialis longus et brevis"],["III.","M. extensor pollicis longus"],["IV.","M. extensor digitorum et M. extensor indicis"],["V.","M. extensor digiti minimi"],["VI.","M. extensor carpi ulnaris"]], p:["Die II. überkreuzt sich mit der III."]},
+  {t:"text", h:"5. Gefäße", p:["Auf der radialen Seite der Region verläuft der Hauptast der A. radialis. Hier gibt sie die Rami carpales dorsales ab, welche an der Bildung des Rete carpi dorsale beteiligt sind."]}
+ ]
+},
+{
+ id:"foveola", name:"Foveola radialis", short:"Tabatière", group:"Hand", page:9,
+ focus:"foveola",
+ blocks:[
+  {t:"kv", h:"1. Grenzen", rows:[["radial","M. abductor pollicis longus, M. extensor pollicis brevis"],["ulnar","M. extensor pollicis longus"]]},
+  {t:"list", h:"2. Hautinnervation", items:["Ramus superficialis nervi radialis"]},
+  {t:"text", h:"3. Oberflächliche Strukturen", p:["Unter der Haut sehen wir die V. cephalica, welche die Foveola radialis überkreuzt, und den Hautnerv. Darunter befindet sich das Retinaculum extensorum."]},
+  {t:"text", h:"4. Muskeln", p:["Auf der Seite der Region verlaufen die Sehnen von M. extensor carpi radialis longus und brevis."]},
+  {t:"text", h:"5. Gefäße und Nerven", p:["A. radialis: verläuft in der Region, dann erreicht sie die Palmarseite durch das I. Spatium interosseum und bildet den Arcus palmaris profundus.","Vor dem Durchtritt gibt sie die A. metacarpalis dorsalis I (primum; hat eine Anastomose mit der A. palmaris digitalis communis, welche die Aa. palmares digitales propriae abgibt) und den Ramus carpalis dorsalis (zum Rete carpi dorsale) ab."]},
+  {t:"list", h:"6. Lymphknoten", items:["Die Lymphe dieser Region mündet in die Nodi lymphatici cubitales."]}
+ ]
+},
+{
+ id:"dorsummanus", name:"Dorsum manus", short:"Handrücken", group:"Hand", page:9,
+ focus:"dorsummanus",
+ blocks:[
+  {t:"kv", h:"1. Grenzen", rows:[["superior","Basen der Ossa metacarpalia"],["inferior","Köpfe der Ossa metacarpalia"],["medial","medialer Rand des Handrückens"],["lateral","lateraler Rand des Handrückens"]]},
+  {t:"box", h:"2. Hautinnervation", rows:[["radiale 2½ Finger","Ramus superficialis nervi radialis"],["ulnare 2½ Finger","Ramus dorsalis nervi ulnaris"]], note:"bis zur Mitte der Mittelglieder",
+   items:["3½ Finger von radial: N. medianus","1½ Finger von ulnar: N. ulnaris (R. superficialis)"], itemsH:"Vom distalen Fingergelenk bis zu den Fingerspitzen"},
+  {t:"text", h:"3. Oberflächliche Strukturen", p:["Unter der Haut befindet sich das Rete venosum dorsale manus, aus welchem die V. cephalica und V. basilica hervorgehen."]},
+  {t:"text", h:"4. Muskeln", p:["Die Mm. interossei dorsales (→ R. profundus n. ulnaris) sind die einzigen in dieser Region zu findenden Muskeln. Sie sind bipennat (zweibäuchig; die palmaren Interosseus-Muskeln sind einbäuchig).","Funktion: Abduktion (vom Mittelfinger ausgehend). Zur Erinnerung: Mm. interossei palmares → Adduktion (zum Mittelfinger).","Gleichzeitige Kontraktion der palmaren und dorsalen Interossei: Flexion in den MCP-Gelenken und Extension der IP-Gelenke."]},
+  {t:"layers", h:"Die Sehnen der Extensoren von ulnar nach radial", note:"Alle Muskeln werden vom N. radialis innerviert.", items:["M. extensor carpi ulnaris","M. extensor digiti minimi","M. extensor digitorum","M. extensor indicis","M. extensor pollicis longus","M. extensor carpi radialis longus","M. extensor carpi radialis brevis","M. abductor pollicis longus","M. extensor pollicis brevis"]},
+  {t:"list", h:"Hinweis", items:["Bei der Präsentation die Sehnenscheiden der karpalen Region mit einbeziehen."]},
+  {t:"text", h:"5. Gefäße", p:["Die A. radialis, welche aus der Foveola radialis kommt, durchbohrt das erste Spatium interosseum. Sie gibt die Rami carpales dorsales ab, welche das Rete carpi dorsale bilden (diese geben: Aa. metacarpeae dorsales → verzweigen sich → Aa. digitales dorsales propriae)."]},
+  {t:"list", h:"6. Lymphknoten", items:["Die Lymphe dieser Region mündet in die Nodi lymphatici cubitales."]},
+  {t:"list", h:"7. Klinische Hinweise", items:["Das Rete carpi dorsale manus wird für Zugänge und i.v. Injektionen verwendet."]}
+ ]
+},
+{
+ id:"glutea", name:"Regio glutea", short:"Gesäß", group:"Bein", page:10,
+ focus:"glutea",
+ blocks:[
+  {t:"kv", h:"1. Grenzen", rows:[["superior","Crista iliaca"],["inferior","Sulcus gluteus"],["lateral","Spina iliaca anterior superior"],["medial","Crista sacralis lateralis"]]},
+  {t:"list", h:"2. Hautinnervation", items:["Nn. clunium superiores (Rami dorsales von L1–L3)","Nn. clunium medii (Rami dorsales von S1–S3)","Nn. clunium inferiores (← N. cutaneus femoris posterior ← Plexus ischiadicus)"],
+   p:["Die Nn. clunium inferiores kommen vom N. cutaneus femoris posterior (aus dem Plexus ischiadicus, Teil des Plexus sacralis). Der Plexus ischiadicus bildet sich aus den ventralen Ästen der Spinalnerven L4–S3.","Die Nn. clunium medii und superiores sind dorsale Äste der ersten drei lumbalen und der ersten drei sakralen Spinalnerven.","Nach dem Entfernen der Haut sieht man die Fascia glutea, die den M. gluteus maximus und den vorderen Teil des M. gluteus medius bedeckt. Der M. gluteus medius ist nicht komplett vom M. gluteus maximus bedeckt. Der M. gluteus medius wird für intramuskuläre Injektionen benutzt, da es hier weder Arterien noch Nerven gibt, die man verletzen kann."]},
+  {t:"text", h:"3. Oberflächliche Strukturen", p:["Unter der Haut und dem Fettgewebe befindet sich die dünne Fascia glutea. Im Fettgewebe verlaufen die hautinnervierenden Nerven. Der M. gluteus medius wird von seiner dicken Faszie bedeckt, welche unten in den Tractus iliotibialis übergeht."]},
+  {t:"text", h:"4. Muskeln", full:true, p:["Der M. gluteus maximus entspringt an den Bandzügen der Articulatio sacroiliaca, an einem kleinen Bezirk des Darmbeins dorsal der Linea glutea posterior, an der Fascia thoracolumbalis und am Lig. sacrotuberale. Er setzt an der Tuberositas glutea und am Tractus iliotibialis an. Seine wichtigste Funktion ist die Extension im Hüftgelenk. Er wird vom N. gluteus inferior innerviert.","Nach dem Einschnitt des M. gluteus maximus werden der M. gluteus medius, M. piriformis, M. gemellus superior und inferior, M. obturator internus sowie der M. quadratus femoris sichtbar.","Der M. gluteus medius entspringt einem dreieckigen Feld zwischen Labium externum der Crista iliaca, der Linea glutea anterior und der Linea glutea posterior. Er setzt am lateralen Umfang des Trochanter major an.","Durchtrennt man den M. gluteus medius, sieht man den darunterliegenden M. gluteus minimus, der zwischen der Linea glutea anterior und inferior entspringt und innen an der Spitze des Trochanter major ansetzt.","Die Funktion des M. gluteus medius ist die Abduktion im Hüftgelenk. Die Bewegung ist gleich der des M. deltoideus: wenn die vorderen Fasern arbeiten, ist es ein Innenrotator, arbeiten die hinteren Fasern, ist es ein Außenrotator. Arbeiten alle zusammen, ist es ein Abduktor. Der M. gluteus minimus hilft bei der Abduktion mit.","Der M. obturator internus, der an der Membrana obturatoria und am knöchernen Rand des Foramen obturatum entspringt und an der Fossa trochanterica ansetzt, verlässt das kleine Becken durch das Foramen ischiadicum minus. Seine Funktion ist die Außenrotation der Hüfte. Die Sehne des M. obturator internus ist umgeben vom M. gemellus superior et inferior. M. gemellus superior et inferior setzen beide an der Fossa trochanterica an und wirken bei der Außenrotation mit.","Der viereckig geformte M. quadratus femoris entspringt am Tuber ischiadicum und setzt an der Crista intertrochanterica an. Seine Funktion ist die Außenrotation."]},
+  {t:"text", h:"Foramen ischiadicum majus", p:["Der Hiatus supra- und infrapiriformis sind die beiden Teile des Foramen ischiadicum majus, das durch den M. piriformis geteilt ist. Die Begrenzungen des Foramen ischiadicum majus sind: Incisura ischiadica major, Lig. sacrotuberale, Lig. sacrospinale."]},
+  {t:"box", h:"Hiatus suprapiriformis", items:["A. glutea superior (← A. iliaca interna)","V. glutea superior (→ V. iliaca interna)","N. gluteus superior (← Plexus ischiadicus)"]},
+  {t:"box", h:"Hiatus infrapiriformis", groups:[["Oben und hinten",["A. glutea inferior (← A. iliaca interna)","V. glutea inferior (→ V. iliaca interna)","N. gluteus inferior (Plexus ischiadicus)"]],["Unten und vorn",["N. ischiadicus (Plexus ischiadicus)","N. cutaneus femoris posterior (Plexus ischiadicus)","N. pudendus (Plexus pudendohaemorrhoidalis)","A. pudenda interna (← A. iliaca interna)","V. pudenda interna (→ V. iliaca interna)","A. comitans nervi ischiadici (← A. glutea inferior)"]]]},
+  {t:"box", h:"Foramen ischiadicum minus", items:["A. pudenda interna (← A. iliaca interna)","V. pudenda interna (→ V. iliaca interna)","N. pudendus (← Plexus pudendohaemorrhoidalis)"]},
+  {t:"table", h:"Muskeltabelle", full:true, cols:["Name","Ursprung","Ansatz","Innervation","Funktion"], rows:[
+   ["M. gluteus maximus","Ala ossis ilii (hinter der Linea glutea posterior), Fascia thoracolumbalis, Bandzug der Articulatio sacroiliaca","Tractus iliotibialis, Tuberositas glutea","N. gluteus inferior","Extension im Hüftgelenk, (Adduktion) (antagonistischer Muskel zum M. iliopsoas)"],
+   ["M. gluteus medius","Ala ossis ilii (zw. Linea glutea ant. und post.)","Trochanter major","N. gluteus superior","Abduktion im Hüftgelenk · vordere Fasern: Innenrotation · hintere Fasern: Außenrotation · zieht das Becken zur Gegenseite · beim Gehen zieht er sich an der Seite des Standbeins zusammen und unterstützt das Becken → Aufrechterhaltung des Beckengleichgewichtes"],
+   ["M. gluteus minimus","Ala ossis ilii (zw. Linea glutea ant. und inf.)","Trochanter major","N. gluteus superior","Abduktion, Innenrotation des Hüftgelenkes"],
+   ["M. piriformis","Facies pelvina ossis sacri","Trochanter major","Plexus ischiadicus","Abduktion, Außenrotation"],
+   ["M. gemellus superior","Spina ischiadica","Fossa trochanterica","N. ischiadicus","Außenrotation"],
+   ["M. obturator internus","Foramen obturatum, Innenfläche der Membrana obturatoria","Fossa trochanterica","Plexus ischiadicus","Außenrotation, Adduktion"],
+   ["M. gemellus inferior","Tuber ischiadicum","Fossa trochanterica","N. ischiadicus","Außenrotation"],
+   ["M. quadratus femoris","Tuber ischiadicum","Crista intertrochanterica","N. ischiadicus","stärkster Außenrotator"]]},
+  {t:"list", h:"5. Lymphknoten", items:["Nodi lymphatici inguinales superficiales","Nodi lymphatici inguinales profundi"]},
+  {t:"list", h:"6. Klinische Hinweise", items:["Intramuskuläre Injektionen werden am häufigsten in dieser Region verabreicht."]}
+ ]
+},
+{
+ id:"femoris", name:"Regio femoris posterior", short:"Oberschenkel hinten", group:"Bein", page:11,
+ focus:"femoris",
+ blocks:[
+  {t:"kv", h:"1. Grenzen", rows:[["superior","Sulcus gluteus"],["inferior","3 Finger oberhalb der Kniekehle"],["lateral","laterale Seite des Schenkels"],["medial","mediale Seite des Schenkels"]]},
+  {t:"list", h:"2. Hautinnervation", items:["N. cutaneus femoris posterior (← Plexus ischiadicus)"]},
+  {t:"text", h:"3. Oberflächliche Strukturen", p:["Unter der Haut befindet sich die Fascia lata, in deren Verdoppelung der Hautnerv verläuft. Im unteren Drittel der Region kann man auch manchmal die Fortsetzung der V. saphena parva, die Giacomini-Vene, sehen, welche in die V. saphena magna mündet.","Die laterale Verdickung der Fascia lata nennt man Tractus iliotibialis. In ihm findet sich der M. tensor fasciae latae. Im oberen Bereich der Region kann man auch die Nn. clunium inferiores finden."]},
+  {t:"list", h:"Fascia lata unter der Haut", items:["Diese umschließt den N. cutaneus femoris posterior","!!! Einziger Ort, wo ein Hautnerv von einer Faszie umhüllt ist"]},
+  {t:"table", h:"4. Muskeln", full:true, note:"Unter der Faszie befinden sich die Flexoren des Kniegelenkes: M. biceps femoris + M. semitendinosus + M. semimembranosus. Die meisten werden vom N. ischiadicus innerviert.", cols:["Name","Ursprung","Ansatz","Innervation","Funktion"], rows:[
+   ["M. biceps femoris","Caput longum: Tuber ischiadicum · Caput breve: Labium laterale der Linea aspera","Capitulum fibulae","N. ischiadicus","Flexion des Kniegelenkes, Außenrotation · Caput longum: Extension im Hüftgelenk"],
+   ["M. semitendinosus","Tuber ischiadicum","Pes anserinus","N. ischiadicus","Flexion, Innenrotation im Kniegelenk, Extension im Hüftgelenk"],
+   ["M. semimembranosus","Tuber ischiadicum","Condylus medialis tibiae","N. ischiadicus","Flexion, Innenrotation im Kniegelenk, Extension im Hüftgelenk"]]},
+  {t:"box", h:"Pes anserinus", note:"= Gänsefuß", p:["Gemeinsamer Ansatz von 3 Muskeln: M. semitendinosus, M. sartorius, M. gracilis."], items:["Ein Sehnenstrahl inseriert knöchern an der medialen Seite des proximalen Tibiaendes, unterhalb des Condylus medialis","Aponeurotische Faszienbedeckung des M. popliteus","Geht über in das Ligamentum popliteum obliquum"], itemsH:"Spaltet sich in 3 Ausläufer"},
+  {t:"list", h:"5. Nerven", items:["N. ischiadicus (← Plexus ischiadicus): befindet sich zwischen dem M. adductor magnus und den Flexoren","Wird begleitet von der A. comitans nervi ischiadici (← A. glutea inferior)","Aufteilung im distalen Drittel des Femurs (kann häufig variieren) in N. peroneus (fibularis) communis und N. tibialis"]},
+  {t:"text", h:"6. Arterien und Venen", p:["V. poplitea + A. poplitea treten in den bzw. aus dem Canalis adductorius ein bzw. aus (Ausgang des Canalis adductorius: Hiatus tendineus / Hiatus adductorius (Adduktorenschlitz) zwischen den Ansätzen des M. adductor magnus und dem Femur).","Die A. profunda femoris gibt die Aa. perforantes (im Allgemeinen 3 Paare) ab, die die Adduktoren und Flexoren versorgen."]},
+  {t:"list", h:"7. Lymphknoten", items:["Nodi lymphatici inguinales","Nodi lymphatici femorales"]}
+ ]
+},
+{
+ id:"poplitea", name:"Regio poplitea", short:"Kniekehle", group:"Bein", page:14,
+ focus:"poplitea",
+ blocks:[
+  {t:"kv", h:"1. Grenzen", rows:[["superior","3 Finger oberhalb des Kniegelenkes"],["inferior","3 Finger unterhalb des Kniegelenkes"],["lateral","entlang des Epicondylus lateralis"],["medial","entlang des Epicondylus medialis"]]},
+  {t:"kv", h:"2. Hautinnervation", rows:[["superior","N. cutaneus femoris posterior"],["inferior","N. cutaneus surae medialis (← N. tibialis), N. cutaneus surae lateralis (← N. fibularis communis)"]]},
+  {t:"list", h:"3. Oberflächliche Strukturen", items:["V. saphena parva (zwischen der Fascia poplitea und der Haut)","Hautnerven"]},
+  {t:"list", h:"4. Nerven", full:true, items:["N. peroneus communis verläuft unter dem Capitulum fibulae in laterale Richtung und teilt sich in N. peroneus superficialis und profundus. Der N. peroneus superficialis liegt zwischen den Peroneusmuskeln, der N. peroneus profundus verläuft zu den Extensoren und versorgt diese.","N. tibialis: führt hinab zur Regio cruris posterior und innerviert die Flexoren des Unterschenkels","N. cutaneus surae medialis (← N. tibialis) ist neben der V. saphena parva zu finden","N. cutaneus surae lateralis (← N. peroneus communis)","Die beiden vorhergenannten Nerven vereinigen sich zum N. suralis, der zusammen mit der V. saphena parva verläuft. Er zieht zum lateralen Fußrand und gibt den N. cutaneus dorsalis pedis lateralis ab."]},
+  {t:"text", h:"Gefäße", p:["Die Strukturen der Regio femoris posterior gehen direkt über in die Regio poplitea: N. peroneus communis + N. tibialis (beide aus dem N. ischiadicus), V. poplitea, A. poplitea.","Durch den Hiatus adductorius kommen die A. et V. femoralis, welche ab Erreichen der Fossa poplitea A. und V. poplitea genannt werden. Die V. poplitea ist immer OBERHALB der A. poplitea. In der Region findet sich die Verzweigung der A. poplitea → A. tibialis anterior et posterior."]},
+  {t:"box", h:"Fossa poplitea", note:"rautenförmig", rows:[["superior & medial","M. semitendinosus & M. semimembranosus"],["superior & lateral","M. biceps femoris"],["inferior & medial","medialer Kopf des M. gastrocnemius"],["inferior & lateral","lateraler Kopf des M. gastrocnemius"],["Boden","Planum popliteum, Kapsel der Art. genus und der M. popliteus"]],
+   p:["Neben dem Caput laterale des M. gastrocnemius findet sich der M. plantaris (nicht immer vorhanden). Am Condylus medialis der Tibia finden wir den Pes anserinus."]},
+  {t:"kv", h:"M. popliteus", rows:[["Lage","tiefster Muskel"],["Ursprung","Condylus lateralis des Femur, Kapsel des Kniegelenkes"],["Ansatz","Facies posterior tibiae"],["Innervation","N. tibialis"]]},
+  {t:"list", h:"5. Lymphknoten", items:["Nodi lymphatici poplitei profundi","Nodi lymphatici poplitei superficiales"]},
+  {t:"list", h:"6. Klinische Hinweise", items:["Bei Frakturen des Caput fibulae wird aufgrund seines nahen Verlaufes häufig der N. peroneus communis verletzt. Folge: sog. „Pferdefuß“ (Extension des Fußes nicht mehr möglich).","Die A. poplitea dient zur Pulsmessung."]}
+ ]
+},
+{
+ id:"cruris", name:"Regio cruris posterior", short:"Wade", group:"Bein", page:15,
+ focus:"cruris",
+ blocks:[
+  {t:"kv", h:"1. Grenzen", rows:[["proximal","Tuberositas tibiae und Caput fibulae"],["distal","gedachte Linie zwischen den Malleoli (medialis und lateralis)"],["medial","gedachte Linie zwischen Epicondylus medialis des Femurs und Malleolus medialis der Tibia"],["lateral","gedachte Linie zwischen Epicondylus lateralis des Femurs und Malleolus lateralis der Fibula"]]},
+  {t:"list", h:"2. Hautinnervation", items:["N. cutaneus surae lateralis (← N. peroneus communis)","N. cutaneus surae medialis (← N. tibialis)","N. suralis"]},
+  {t:"text", h:"3. Oberflächliche Strukturen", p:["Unter der Haut sieht man die V. saphena parva und daneben den N. suralis. Im oberen medialen Bereich der Region kann man auch die V. saphena magna sehen. Die Venen der Region gehen aus dem Plexus venosus dorsalis pedis hervor.","Die Faszie, die Fascia cruris, sendet Septen zwischen die Extensormuskeln, die Flexoren und die Peroneusmuskeln (Septa intermuscularia cruris anterius et posterius)."]},
+  {t:"table", h:"4. Muskeln", full:true, cols:["Muskel","Ursprung","Ansatz","Funktion","Innervation"], rows:[
+   ["M. triceps surae (M. gastrocnemius medialis, M. gastrocnemius lateralis, M. soleus)","Epicondylus medialis femoris · Epicondylus lateralis femoris · Linea m. solei, Caput fibulae","Tuber calcanei (Achilles-Sehne)","Plantarflexion, Flexion im Kniegelenk, zieht den Unterschenkel nach hinten","N. tibialis"],
+   ["M. flexor digitorum longus","Dorsalfläche der Tibia","Endglieder der 2.–5. Zehen an der plantaren Seite","Flexion der 2.–5. Zehen, Plantarflexion im oberen Sprunggelenk, Supination im unteren Sprunggelenk; wichtig beim Gehen","N. tibialis"],
+   ["M. tibialis posterior","Membrana interossea, Tibia, Fibula","Os naviculare","Plantarflexion im oberen Sprunggelenk, Supination im unteren Sprunggelenk","N. tibialis"],
+   ["M. flexor hallucis longus","Dorsalfläche der Fibula, Membrana interossea","Endglied der Großzehe an der plantaren Seite","Flexion der Großzehe, Plantarflexion im oberen Sprunggelenk; Supination und Adduktion im unteren Sprunggelenk","N. tibialis"],
+   ["M. popliteus","Condylus lateralis femoris","Dorsalfläche der Tibia","Schützt die Kapsel des Kniegelenkes","N. tibialis"]]},
+  {t:"list", h:"5. Gefäße und Nerven", items:["A. tibialis posterior ist ein Ast der A. poplitea, der zwischen den oberflächlichen und den tiefen Flexoren verläuft, unter dem tiefen Blatt der Fascia cruris. In der Region gibt sie die A. peronea ab, die zur Fibula zieht, in den Canalis musculoperoneus, der durch den M. flexor hallucis longus und den M. tibialis posterior geformt wird.","Vv. tibiales posteriores begleiten die A. tibialis posterior und münden in die V. poplitea.","N. tibialis"]},
+  {t:"list", h:"6. Lymphknoten", items:["Nodi lymphatici poplitei superficiales et profundi"]}
+ ]
+},
+{
+ id:"plantaris", name:"Regio plantaris", short:"Fußsohle", group:"Bein", page:16,
+ focus:"plantaris",
+ blocks:[
+  {t:"kv", h:"1. Grenzen", rows:[["posterior","Tuber calcanei"],["anterior","Basis der Zehen"],["medial","medialer Rand der Fußsohle"],["lateral","lateraler Rand der Fußsohle"]]},
+  {t:"list", h:"2. Hautinnervation", items:["N. plantaris medialis (→ N. tibialis), medial von der Mittellinie der 4. Zehe","N. plantaris lateralis (→ N. tibialis), lateral von der Mittellinie der 4. Zehe"]},
+  {t:"text", h:"3. Oberflächliche Strukturen", p:["Unter der Haut finden wir die verdickte Faszie, die Aponeurosis plantaris, welche vom Tuber calcanei ausgehend auf der Fußsohle ausstrahlt. Sie dient zur Unterstützung der Erhaltung des Fußgewölbes.","Beidseitig finden wir den Sulcus plantaris medialis et lateralis, welche vom Septum intermusculare mediale et laterale gebildet werden. In diesen Sulci verlaufen die A. und N. plantaris medialis bzw. die A. und N. plantaris lateralis."]},
+  {t:"text", h:"4. Muskeln", full:true, p:["Unter der Aponeurosis plantaris finden wir den M. flexor digitorum brevis (innerviert durch den N. plantaris medialis). Medial davon sieht man den M. abductor hallucis (Eminentia plantaris medialis), lateral davon den M. abductor digiti minimi (Eminentia plantaris lateralis).","Zwischen dem M. flexor digitorum brevis und dem M. abductor hallucis finden wir die Sehne des M. flexor hallucis longus.","Unter diesen finden wir die Sehnen des M. flexor digitorum longus (N. tibialis), an denen der M. quadratus plantae (N. plantaris lateralis) ansetzt. Die Funktion des M. flexor digitorum longus ist Flexion sowie Adduktion. Diese wird durch den M. quadratus plantae kompensiert, da dieser den Fuß von medial nach lateral zieht (Abduktion).","Zwischen den Sehnen des M. flexor digitorum longus haben die Mm. lumbricales (N. plantaris medialis et lateralis) ihren Ursprung. Der Ansatz ist auf den dorsalen Extensorensehnen.","Mm. interossei plantares: entspringen an der medialen Seite des III., IV. und V. Metatarsus und setzen dorsal an der Extensorensehne an. Werden vom N. plantaris lateralis innerviert.","In der Tiefe der Region verläuft die Sehne des M. peroneus longus von lateral nach medial."]},
+  {t:"box", h:"Eminentia plantaris medialis", items:["M. abductor hallucis (N. plantaris medialis)","Zweiköpfiger M. flexor hallucis brevis (Caput mediale: N. plantaris medialis, Caput laterale: N. plantaris lateralis)","M. adductor hallucis (Caput obliquum et transversum; N. plantaris lateralis)"]},
+  {t:"box", h:"Eminentia plantaris lateralis", items:["M. abductor digiti minimi","M. flexor digiti minimi","M. opponens digiti minimi"], p:["alle: N. plantaris lateralis"]},
+  {t:"box", h:"Sulcus plantaris medialis", items:["A. plantaris medialis: ein Ast der A. tibialis posterior. Ihre Endäste sind die Aa. digitales plantares communes → Aa. digitales plantares propriae.","N. plantaris medialis: ein Ast des N. tibialis. Er verläuft zu den Zehen als Nn. digitales plantares communes → Nn. digitales plantares proprii (innerviert die medialen 3½ Zehen)."]},
+  {t:"box", h:"Sulcus plantaris lateralis", items:["A. plantaris lateralis: ein Ast der A. tibialis posterior. Verläuft bogenförmig nach medial als Arcus plantaris und anastomosiert mit der A. dorsalis pedis. Aus dem Arcus plantaris gehen die Aa. metatarseae plantares → Aa. digitales plantares propriae hervor. Aus den Aa. metatarseae plantares stammen die Aa. perforantes, die zur A. arcuata (← A. dorsalis pedis ← A. tibialis anterior) ziehen.","N. plantaris lateralis: ein Ast des N. tibialis. Seine oberflächlichen Äste sind die Nn. digitales plantares proprii."]},
+  {t:"table", h:"5. Nerven", cols:["N. plantaris lateralis innerviert","N. plantaris medialis innerviert"], rows:[
+   ["M. abductor digiti minimi","M. abductor hallucis"],["M. flexor digiti minimi","M. flexor hallucis brevis, Caput mediale"],["M. adductor hallucis","Mm. lumbricales I + II"],["M. quadratus plantae","M. flexor digitorum brevis"],["Mm. lumbricales III + IV",""],["Mm. interossei plantares",""],["M. flexor hallucis brevis, Caput laterale",""],["M. opponens digiti minimi",""]]},
+  {t:"list", h:"6. Lymphknoten", items:["Nodi lymphatici poplitei profundi","Nodi lymphatici poplitei superficiales"]},
+  {t:"list", h:"7. Klinische Hinweise", items:["Fußsohlenreflex: wenn man mit einem stumpfen Gegenstand an der lateralen Seite der Fußsohle entlangfährt, verursacht dies eine plantare Flexion der Zehen. Sollte dies eine dorsale Flexion verursachen, nennt man dies Babinski-Reflex, welcher auf eine Verletzung der Pyramidenbahn zurückzuführen ist."]}
+ ]
+}
+];
+
+</script>
+<script>
+/* ---------- Strukturen, Aliase, Verlinkung ---------- */
+const TYPE_DE={A:"Arterie",V:"Vene",N:"Nerv",M:"Muskel",B:"Knochen",C:"Sehne / Faszie / Membran",S:"Haut"};
+const TYPE_PL={M:"Muskeln",N:"Nerven",A:"Arterien",V:"Venen",C:"Sehnen und Membranen",B:"Knochen"};
+const STRUCT={};            // id -> {id,label,type,layer?,mesh?:true,path?:{...}}
+META.structs.forEach((s,i)=>{STRUCT[s.id]=Object.assign({mesh:true,mi:i},s);});
+PATHS.forEach(p=>{STRUCT[p.id]=Object.assign({path:p},{id:p.id,label:p.label,type:p.type});});
+
+const EXTRA={
+ trapezius:["Pars descendens","Pars transversa","Pars ascendens"],
+ latissimus:["Mm. latissimus dorsi"],
+ deltoideus:["Pars clavicularis","Pars acromialis","Pars spinalis"],
+ rhombmaj:["Mm. rhomboidei","M. rhomboideus major et minor"],
+ supraspin:["Mm. supraspinatus"],
+ rectmaj:["Mm. rectus capitis posterior major et minor"],
+ erector:["autochthone Rückenmuskulatur","autochthone Muskulatur"],
+ triceps:["Caput longum m. tricipitis brachii","Caput laterale m. tricipitis brachii"],
+ ecrl:["M. extensor carpi radialis longus et brevis"],
+ gemsup:["M. gemellus superior et inferior","M. gemellus superior und inferior"],
+ gastro:["M. triceps surae","M. gastrocnemius medialis","M. gastrocnemius lateralis"],
+ interdors:["Mm. interossei dorsales"],
+ lumbped:["Mm. lumbricales"],
+ abddmf:["M. abductor digiti minimi"], fdmb:["M. flexor digiti minimi"], oppdmf:["M. opponens digiti minimi"],
+ achilles:["Achilles-Sehne"],
+ occipitale:["Protuberantia occipitalis externa","Protuberantia occipitalis","Foramen magnum"],
+ temporale:["Processus mastoideus"],
+ atlas:["Arcus posterior des Atlas"],
+ c7:["Vertebra prominens"],
+ sacrum:["Sacrum","Crista sacralis lateralis","Facies pelvina ossis sacri"],
+ scapula:["Acromion","Spina scapulae","Margo medialis scapulae","Margo lateralis scapulae","Angulus inferior scapulae","Angulus superior scapulae","Angulus inferior","Fossa supraspinata","Fossa infraspinata","Tuberculum infraglenoidale","Incisura scapulae"],
+ humerus:["Tuberculum majus","Crista tuberculi minoris humeri","Crista tuberculi minoris","Tuberositas deltoidea","Epicondylus lateralis","Epicondylus medialis","Sulcus nervi radialis"],
+ ulna:["Olecranon ulnae","Olecranon","Caput ulnae"],
+ radius:["Processus styloideus radii","Crista m. supinatoris"],
+ metacarpus:["Ossa metacarpalia","Metacarpus","Metacarpi"],
+ coxae:["Crista iliaca","Tuber ischiadicum","Spina iliaca anterior superior","Ala ossis ilii","Linea glutea posterior","Linea glutea anterior","Incisura ischiadica major","Spina ischiadica","Foramen obturatum"],
+ femur:["Epicondylus lateralis femoris","Epicondylus medialis femoris","Epicondylus medialis des Femurs","Epicondylus lateralis des Femurs","Condylus lateralis des Femur","Condylus lateralis femoris","Trochanter major","Fossa trochanterica","Crista intertrochanterica","Tuberositas glutea","Linea aspera"],
+ tibia:["Condylus medialis tibiae","Condylus medialis der Tibia","Tuberositas tibiae","Malleolus medialis","Planum popliteum","Facies posterior tibiae"],
+ fibula:["Capitulum fibulae","Caput fibulae","Malleolus lateralis"],
+ calcaneus:["Tuber calcanei"],
+ tarsus:["Os naviculare"],
+ metatarsus:["Metatarsus"],
+ rdeltoid:["Ramus deltoideus der A. thoracoacromialis","Ramus deltoideus"],
+ acollrad:["A. collateralis radialis et media"],
+ rcarpdors:["Rami carpales dorsales","Rr. carpales dorsales","Rete carpi dorsale","Ramus carpalis dorsalis"],
+ ametacdors:["Aa. metacarpeae dorsales","A. metacarpalis dorsalis I"],
+ atibant:["A. tibialis anterior et posterior"],
+ adigplant:["Aa. digitales plantares communes","Aa. digitales plantares propriae"],
+ afem:["A. et V. femoralis"],
+ acomitans:["A. comitans nervi ischiadici"],
+ aperonea:["A. peronea"],
+ vtibpost:["Vv. tibiales posteriores"],
+ nradialis:["Nervus radialis","N. radialis"],
+ nradsup:["Ramus superficialis n. radialis","Ramus superficialis nervi radialis","R. superficialis n. radialis"],
+ nradprof:["Ramus profundus n. radialis","R. profundus n. radialis","R. prof. n. radialis"],
+ ncutbrpost:["N. cutaneus brachii et antebrachii posterior"],
+ nulndors:["Ramus dorsalis n. ulnaris","Ramus dorsalis nervi ulnaris"],
+ ntibialis:["Nervus tibialis"],
+ nperoneus:["N. peroneus communis","N. fibularis communis"],
+ nplantmed:["N. plantaris medialis et lateralis"],
+ rrdors:["Rami dorsales nervi spinales","Rr. dorsales der Spinalnerven"],
+ memintantebr:[], memintcrur:[]
+};
+const SCOPED=[ // alias gilt nur in bestimmten Regionen
+ ["aperffem","Aa. perforantes",["femoris"]],["aperfped","Aa. perforantes",["plantaris"]],
+ ["memintantebr","Membrana interossea",["antebrachii","cubiti","carpi"]],["memintcrur","Membrana interossea",["cruris"]]
+];
+const NOALIAS=new Set(["skin","cranium","wirbel","thorax","carpus","phalmanus","phalpedis","memintantebr","memintcrur"]);
+function baseAliases(s){const a=[];const l=s.label.replace(/\s*\(.*?\)\s*/g," ").trim();if(!NOALIAS.has(s.id))a.push(l);if(s.label!==l&&!NOALIAS.has(s.id))a.push(s.label);return a;}
+const ALIAS=[];
+Object.values(STRUCT).forEach(s=>{baseAliases(s).concat(EXTRA[s.id]||[]).forEach(t=>t&&t.length>3&&ALIAS.push([t,s.id,null]));});
+SCOPED.forEach(([id,t,r])=>ALIAS.push([t,id,r]));
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const rxEsc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+const RX_CACHE={};
+function regionRx(rid){
+ if(RX_CACHE[rid])return RX_CACHE[rid];
+ const list=ALIAS.filter(a=>!a[2]||a[2].includes(rid)).sort((a,b)=>b[0].length-a[0].length);
+ const map={};list.forEach(a=>{if(!map[a[0]])map[a[0]]=a[1];});
+ const rx=new RegExp("(?<![A-Za-zÄÖÜäöüß])("+Object.keys(map).map(k=>rxEsc(esc(k))).join("|")+")(?![A-Za-zäöüß])","g");
+ return RX_CACHE[rid]={rx,map:Object.fromEntries(Object.entries(map).map(([k,v])=>[esc(k),v]))};
+}
+const MENTIONS={};  // id -> [{r, text}]
+const REGION_IDS={};// region -> Set(ids)
+function link(text,rid,ctx){
+ const {rx,map}=regionRx(rid);const found=new Set();
+ const html=esc(text).replace(rx,(m)=>{const id=map[m];if(!id)return m;found.add(id);const t=STRUCT[id].type;return `<button class="s3d t-${t}" data-s="${id}" title="Im 3D-Modell zeigen">${m}</button>`;});
+ if(ctx!==false){found.forEach(id=>{(REGION_IDS[rid]=REGION_IDS[rid]||new Set()).add(id);const arr=(MENTIONS[id]=MENTIONS[id]||[]);const tx=ctx||text;if(!arr.some(x=>x.r===rid&&x.text===tx))arr.push({r:rid,text:tx});});}
+ return html;
+}
+
+/* ---------- Rendering der Regionen ---------- */
+const $=s=>document.querySelector(s);
+const REG=Object.fromEntries(REGIONS.map(r=>[r.id,r]));
+const REG_HTML={};
+function renderBlock(b,rid){
+ const L=(t,ctx)=>link(t,rid,ctx);
+ let h=`<section class="sec${b.full||b.t==="table"&&b.cols.length>3?" full":""}${b.t==="box"?" box":""}"><h4>${esc(b.h||"")}${b.note?`<small>${esc(b.note)}</small>`:""}</h4>`;
+ const kv=rows=>`<dl class="kv">${rows.map(([k,v])=>`<dt>${esc(k)}</dt><dd class="q">${L(v,k+": "+v)}</dd>`).join("")}</dl>`;
+ const ul=(items)=>`<ul class="l">${items.map(i=>`<li class="q">${L(i)}</li>`).join("")}</ul>`;
+ const ps=p=>p.map(x=>`<p>${L(x)}</p>`).join("");
+ if(b.t==="kv")h+=kv(b.rows);
+ if(b.t==="list"){h+=ul(b.items);if(b.p)h+=ps(b.p);}
+ if(b.t==="text")h+=ps(b.p);
+ if(b.t==="layers")h+=`<ol class="layers">${b.items.map(i=>`<li><span class="q">${L(i)}</span></li>`).join("")}</ol>`;
+ if(b.t==="mn")h=`<section class="sec full"><div class="mn">${L(b.text,false)}</div>`;
+ if(b.t==="table"){
+  if(b.note&&b.t==="table")h=h.replace(`<small>${esc(b.note)}</small>`,"")+`<p class="note">${L(b.note)}</p>`;
+  h+=`<div class="tbl"><table><thead><tr>${b.cols.map(c=>`<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>${b.rows.map(r=>{
+   const ctx=r.map((c,i)=>c&&i?`${b.cols[i]}: ${c}`:c).filter(Boolean).join(" · ");
+   return `<tr>${r.map((c,i)=>`<td${i?' class="q"':''}>${L(c,i===0?ctx:(r[0]?r[0]+" · "+b.cols[i]+": "+c:c))}</td>`).join("")}</tr>`;}).join("")}</tbody></table></div>`;
+  if(b.after)h+=ps(b.after);
+ }
+ if(b.t==="box"){
+  if(b.rows)h+=kv(b.rows);
+  if(b.items){if(b.itemsH)h+=`<h5>${esc(b.itemsH)}</h5>`;h+=ul(b.items);}
+  if(b.groups)b.groups.forEach(([g,it])=>{h+=`<h5>${esc(g)}</h5>`+ul(it);});
+  if(b.p)h+=ps(b.p);
+ }
+ return h+"</section>";
+}
+REGIONS.forEach(r=>{REG_HTML[r.id]=r.blocks.map(b=>renderBlock(b,r.id)).join("");});
+
+function chipsFor(rid){
+ const ids=[...(REGION_IDS[rid]||[])].filter(id=>STRUCT[id].type!=="B");
+ const order="MNAVC";ids.sort((a,b)=>order.indexOf(STRUCT[a].type)-order.indexOf(STRUCT[b].type)||STRUCT[a].label.localeCompare(STRUCT[b].label));
+ return ids;
+}
+const DOT={A:"var(--art)",V:"var(--vein)",N:"var(--nerve)",M:"var(--musc)",B:"var(--bone)",C:"var(--bone)"};
+let current=null;
+function show(rid,push){
+ const r=REG[rid]||REGIONS[0];current=r.id;
+ const i=REGIONS.indexOf(r),prev=REGIONS[i-1],next=REGIONS[i+1];
+ const ids=chipsFor(r.id);
+ $("#main").innerHTML=`<div class="rhead"><div><div class="eyebrow">${esc(r.group)} · Skript S. ${r.page}</div><h2>${esc(r.name)}</h2><div class="de">${esc(r.short)}</div></div>
+ <div class="nav"><button class="btn" id="pv" ${prev?"":"disabled"}>← ${prev?esc(prev.short):""}</button><button class="btn" id="nx" ${next?"":"disabled"}>${next?esc(next.short):""} →</button></div></div>
+ <div class="hero"><div><p>Strukturen dieser Region im 3D-Modell. Unterstrichene Begriffe im Text lassen sich ebenfalls anklicken.</p>
+ <div class="in3d">${ids.slice(0,40).map(id=>`<button class="chip" data-s="${id}"><i class="dot" style="background:${DOT[STRUCT[id].type]}"></i>${esc(STRUCT[id].label)}</button>`).join("")}</div></div>
+ <button class="btn btn3d" id="reg3d">Region in 3D</button></div>
+ <div class="cols">${REG_HTML[r.id]}</div>
+ <p class="src">Quelle: Anatomieregionen für Medizinstudierende, Band 2. Die dorsalen Regionen (UP-MF Institut für Anatomie, korrigierte Auflage 13.11.2023).</p>`;
+ document.querySelectorAll(".reg").forEach(b=>b.classList.toggle("on",b.dataset.r===r.id));
+ document.querySelectorAll(".hot").forEach(b=>b.classList.toggle("on",b.dataset.r===r.id));
+ $("#pv").onclick=()=>prev&&show(prev.id,true);$("#nx").onclick=()=>next&&show(next.id,true);
+ $("#reg3d").onclick=()=>open3D({region:r.id});
+ if(push){try{history.replaceState(null,"","#"+r.id);}catch(e){}window.scrollTo({top:0,behavior:"instant"});}
+}
+document.addEventListener("click",e=>{
+ const q=e.target.closest(".quiz .q:not(.shown)");if(q){q.classList.add("shown");e.preventDefault();e.stopPropagation();return;}
+ const s=e.target.closest("[data-s]");if(s&&!s.closest("#v3")){open3D({region:current,sel:s.dataset.s});}
+},true);
+
+/* Index + Körperkarte */
+(function(){
+ const groups={};REGIONS.forEach(r=>(groups[r.group]=groups[r.group]||[]).push(r));
+ $("#index").innerHTML=Object.entries(groups).map(([g,rs])=>`<div><h3>${esc(g)}</h3>${rs.map(r=>`<button class="reg" data-r="${r.id}"><span>${esc(r.name)}</span><small>S. ${r.page}</small></button>`).join("")}</div>`).join("");
+ $("#index").addEventListener("click",e=>{const b=e.target.closest(".reg");if(b)show(b.dataset.r,true);});
+ $("#sil").innerHTML=`<path class="sil" d="${SILHOUETTE}"/><path class="spine" d="M200,140 L200,392"/>`;
+ const H=[
+  ["nuchae","ellipse",{cx:200,cy:112,rx:24,ry:30}],
+  ["scapulae","path",{d:"M214,162 L284,166 L280,200 L262,248 L236,252 L216,236 Z"}],
+  ["ruecken","path",{d:"M196,150 L150,168 L134,240 L142,330 L150,368 L196,388 Z"}],
+  ["deltoidea","ellipse",{cx:300,cy:196,rx:17,ry:30}],
+  ["brachii","path",{d:"M288,226 L316,226 L320,302 L296,304 Z"}],
+  ["cubiti","ellipse",{cx:310,cy:322,rx:15,ry:18}],
+  ["antebrachii","path",{d:"M299,342 L326,342 L338,424 L318,428 Z"}],
+  ["carpi","ellipse",{cx:331,cy:440,rx:12,ry:9}],
+  ["foveola","circle",{cx:347,cy:446,r:6}],
+  ["dorsummanus","ellipse",{cx:340,cy:480,rx:14,ry:17}],
+  ["glutea","path",{d:"M204,372 L262,368 L270,430 L256,496 L204,498 Z"}],
+  ["femoris","path",{d:"M208,506 L264,506 L258,632 L222,632 Z"}],
+  ["poplitea","ellipse",{cx:241,cy:662,rx:18,ry:24}],
+  ["cruris","path",{d:"M222,692 L262,692 L254,842 L230,842 Z"}],
+  ["plantaris","ellipse",{cx:240,cy:880,rx:15,ry:12}]];
+ $("#hots").innerHTML=H.map(([id,tag,a])=>`<${tag} class="hot" tabindex="0" role="button" data-r="${id}" aria-label="${esc(REG[id].name)}" ${Object.entries(a).map(([k,v])=>`${k}="${v}"`).join(" ")}><title>${esc(REG[id].name)}</title></${tag}>`).join("");
+ $("#hots").addEventListener("click",e=>{const h=e.target.closest(".hot");if(h)show(h.dataset.r,true);});
+ $("#hots").addEventListener("keydown",e=>{const h=e.target.closest(".hot");if(h&&(e.key==="Enter"||e.key===" ")){e.preventDefault();show(h.dataset.r,true);}});
+})();
+$("#quizBtn").onclick=e=>{const on=document.body.classList.toggle("quiz");e.currentTarget.setAttribute("aria-pressed",on);document.querySelectorAll(".q.shown").forEach(q=>q.classList.remove("shown"));};
+$("#open3d").onclick=()=>open3D({});
+const h0=(location.hash||"").slice(1);show(REG[h0]?h0:"nuchae");
+window.addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(REG[h]&&h!==current)show(h);});
+
+/* ---------- 3D ---------- */
+const FOCUS={
+ nuchae:{t:[0,1.55,-0.06],d:0.55,az:180,el:8},
+ scapulae:{t:[-0.1,1.34,-0.06],d:0.75,az:185,el:10},
+ ruecken:{t:[0,1.2,-0.06],d:1.15,az:180,el:6},
+ deltoidea:{t:[-0.17,1.36,-0.03],d:0.6,az:215,el:8},
+ brachii:{t:[-0.19,1.24,-0.035],d:0.7,az:200,el:4},
+ cubiti:{t:[-0.215,1.12,-0.02],d:0.42,az:192,el:4},
+ antebrachii:{t:[-0.235,1.0,-0.01],d:0.62,az:188,el:2},
+ carpi:{t:[-0.26,0.885,0.0],d:0.32,az:190,el:4},
+ foveola:{t:[-0.27,0.885,0.01],d:0.3,az:240,el:6},
+ dorsummanus:{t:[-0.262,0.84,0.015],d:0.34,az:186,el:2},
+ glutea:{t:[-0.06,0.9,-0.07],d:0.75,az:195,el:6},
+ femoris:{t:[-0.075,0.68,-0.04],d:0.95,az:190,el:2},
+ poplitea:{t:[-0.075,0.45,-0.04],d:0.5,az:186,el:2},
+ cruris:{t:[-0.075,0.25,-0.04],d:0.85,az:186,el:2},
+ plantaris:{t:[-0.085,0.02,0.04],d:0.42,az:180,el:-62}
+};
+const VIEWS={back:{az:180,el:5},front:{az:0,el:5},right:{az:270,el:5},left:{az:90,el:5}};
+const COLORS={S:"#e2b79e",B:"#e8dec8",M:"#9b3a30",C:"#e2d8c2",A:"#c8352a",V:"#2f5ca6",N:"#e8c23e"};
+const HL="#16c79a";
+let V=null;
+async function open3D(opt){
+ $("#v3").hidden=false;document.body.style.overflow="hidden";
+ if(!V){try{await init3D();}catch(err){console.error(err);$("#v3msg").hidden=false;$("#v3msg").textContent="Das 3D-Modell konnte nicht geladen werden. Dafür braucht der Browser WebGL.";return;}}
+ V.resize();
+ setScope(opt.region&&!opt.sel?opt.region:(opt.region&&opt.sel?opt.region:null),!!opt.region);
+ if(opt.sel){select(opt.sel,true);}else{select(null);if(opt.region)flyTo(FOCUS[opt.region]);else flyTo({t:[0,0.9,0],d:3.2,...VIEWS.back});}
+}
+$("#v3close").onclick=()=>{$("#v3").hidden=true;document.body.style.overflow="";};
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#v3").hidden)$("#v3close").click();});
+
+async function init3D(){
+ const msg=$("#v3msg");msg.hidden=false;msg.textContent="Lade 3D-Modell …";
+ THREE.ColorManagement&&(THREE.ColorManagement.legacyMode=false);
+ const stage=$("#v3stage");
+ const R=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:"high-performance"});
+ R.setPixelRatio(Math.min(2,window.devicePixelRatio||1));R.outputEncoding=THREE.sRGBEncoding;R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.05;
+ stage.prepend(R.domElement);
+ const S=new THREE.Scene();
+ const cam=new THREE.PerspectiveCamera(32,1,0.01,20);
+ const ctl=new THREE.OrbitControls(cam,R.domElement);ctl.enableDamping=true;ctl.dampingFactor=0.12;ctl.minDistance=0.12;ctl.maxDistance=5;ctl.zoomSpeed=1.1;
+ // Umgebung
+ const pm=new THREE.PMREMGenerator(R);const env=new THREE.Scene();
+ const sg=new THREE.SphereGeometry(5,32,16);const cols=[];const top=new THREE.Color("#ffffff"),bot=new THREE.Color("#7d746c");
+ for(let i=0;i<sg.attributes.position.count;i++){const y=sg.attributes.position.getY(i)/5;const c=bot.clone().lerp(top,(y+1)/2);cols.push(c.r,c.g,c.b);}
+ sg.setAttribute("color",new THREE.Float32BufferAttribute(cols,3));
+ env.add(new THREE.Mesh(sg,new THREE.MeshBasicMaterial({vertexColors:true,side:THREE.BackSide})));
+ const lb=(x,y,z,s,i)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(s,s),new THREE.MeshBasicMaterial({color:new THREE.Color(i,i,i),side:THREE.DoubleSide}));m.position.set(x,y,z);m.lookAt(0,0,0);env.add(m);};
+ lb(0,3,-2,2.5,4);lb(-3,1,2,2,2.2);lb(3,2,1,1.6,2.5);
+ S.environment=pm.fromScene(env,0.03).texture;
+ S.add(new THREE.HemisphereLight(0xffffff,0x6b625a,0.35));
+ const key=new THREE.DirectionalLight(0xffffff,1.0);key.position.set(1.2,2.5,-2.2);S.add(key);
+ const fill=new THREE.DirectionalLight(0xfff2e6,0.45);fill.position.set(-2,1,2);S.add(fill);
+ const rim=new THREE.DirectionalLight(0xdde8ff,0.35);rim.position.set(-1.5,1.8,-2.5);S.add(rim);
+ cam.add(new THREE.DirectionalLight(0xffffff,0.25));S.add(cam);
+
+ // Geometrie laden
+ const res=await fetch("body.js");if(!res.ok)throw new Error("body.js "+res.status);
+ const total=+res.headers.get("content-length")||0;let txt;
+ if(res.body&&total){const rd=res.body.getReader();const chunks=[];let got=0;
+  for(;;){const {done,value}=await rd.read();if(done)break;chunks.push(value);got+=value.length;msg.textContent=`Lade 3D-Modell … ${Math.min(100,Math.round(got/total*100))} %`;}
+  txt=await new Blob(chunks).text();}else txt=await res.text();
+ const b64=txt.slice(txt.indexOf('"')+1,txt.lastIndexOf('"'));const bin=atob(b64);const u8=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);
+ const buf=u8.buffer;
+ msg.textContent="Baue Modell auf …";await new Promise(r=>setTimeout(r,20));
+ const lo=META.lo,hi=META.hi,sc=[0,1,2].map(a=>(hi[a]-lo[a])/65535);
+ const groups={};
+ META.meshes.forEach(([si,po,nv,io,ni,big])=>{(groups[si]=groups[si]||[]).push([po,nv,io,ni,big]);});
+ const objs={};
+ const mat=(t,id)=>{
+  const c=new THREE.Color(COLORS[t]);
+  const m=new THREE.MeshPhysicalMaterial({color:c,roughness:{S:.55,B:.62,M:.5,C:.38,A:.3,V:.3,N:.36}[t],metalness:0,envMapIntensity:{S:.6,B:.7,M:.8,C:.9,A:1,V:1,N:1}[t],clearcoat:{M:.18,A:.4,V:.4,N:.3,C:.25}[t]||0,clearcoatRoughness:.45});
+  if(t==="S"){m.transparent=true;m.opacity=.13;m.depthWrite=false;}
+  if(id==="latissimus")m.side=THREE.DoubleSide;
+  m.userData.base={color:c.clone(),opacity:m.opacity,transparent:m.transparent,depthWrite:m.depthWrite};
+  return m;};
+ Object.entries(groups).forEach(([si,list])=>{
+  const st=META.structs[si];let nvT=0,niT=0;list.forEach(m=>{nvT+=m[1];niT+=m[3];});
+  const pos=new Float32Array(nvT*3),idx=new Uint32Array(niT);let vo=0,ioff=0;
+  list.forEach(([po,nv,io,ni,big])=>{const q=new Uint16Array(buf,po,nv*3);
+   for(let i=0;i<nv*3;i++){const a=i%3;pos[vo*3+i]=lo[a]+q[i]*sc[a];}
+   const I=big?new Uint32Array(buf,io,ni):new Uint16Array(buf,io,ni);for(let k=0;k<ni;k++)idx[ioff+k]=I[k]+vo;
+   vo+=nv;ioff+=ni;});
+  const g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.BufferAttribute(pos,3));g.setIndex(new THREE.BufferAttribute(idx,1));g.computeVertexNormals();g.computeBoundingSphere();
+  const mesh=new THREE.Mesh(g,mat(st.type,st.id));mesh.userData.id=st.id;S.add(mesh);objs[st.id]=mesh;
+ });
+ PATHS.forEach(p=>{
+  const geos=[];
+  [1,-1].forEach(sx=>p.lines.forEach(L=>{const pts=L.map(q=>new THREE.Vector3(q[0]*sx,q[1],q[2]));
+   const cv=new THREE.CatmullRomCurve3(pts,false,"centripetal",.5);geos.push(new THREE.TubeGeometry(cv,Math.max(10,pts.length*10),p.r,10,false));}));
+  const g=mergeGeos(geos);g.computeBoundingSphere();
+  const mesh=new THREE.Mesh(g,mat(p.type,p.id));mesh.userData.id=p.id;S.add(mesh);objs[p.id]=mesh;
+ });
+ // Schwerpunkt der rechten Seite je Struktur (für Kamera und Beschriftung)
+ const ctr={};
+ Object.entries(objs).forEach(([id,m])=>{const a=m.geometry.attributes.position;const b=new THREE.Box3();const v=new THREE.Vector3();let n=0;
+  for(let i=0;i<a.count;i+=Math.max(1,Math.floor(a.count/4000))){v.fromBufferAttribute(a,i);if(v.x<=0.002||id==="skin"){b.expandByPoint(v);n++;}}
+  if(!n){for(let i=0;i<a.count;i+=7){v.fromBufferAttribute(a,i);b.expandByPoint(v);}}
+  const c=b.getCenter(new THREE.Vector3());const s=b.getSize(new THREE.Vector3());ctr[id]={c,r:Math.max(s.x,s.y,s.z)/2};});
+ msg.hidden=true;
+
+ V={R,S,cam,ctl,objs,ctr,stage,sel:null,scope:null,scopeOn:false,peel:0,show:{S:true,B:true,M:true,A:true,V:true,N:true,C:true},onlySel:false,anim:null};
+ V.resize=()=>{const w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;R.setSize(w,h);cam.aspect=w/h;cam.updateProjectionMatrix();req();};
+ window.addEventListener("resize",V.resize);
+ ctl.addEventListener("change",req);
+ bindUI();buildList();
+ cam.position.set(0,1,-3.2);ctl.target.set(0,0.9,0);ctl.update();
+}
+function mergeGeos(geos){let nv=0,ni=0;geos.forEach(g=>{nv+=g.attributes.position.count;ni+=g.index.count;});
+ const P=new Float32Array(nv*3),N=new Float32Array(nv*3),I=new Uint32Array(ni);let vo=0,io=0;
+ geos.forEach(g=>{P.set(g.attributes.position.array,vo*3);N.set(g.attributes.normal.array,vo*3);const ix=g.index.array;for(let k=0;k<ix.length;k++)I[io+k]=ix[k]+vo;vo+=g.attributes.position.count;io+=ix.length;g.dispose();});
+ const g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.BufferAttribute(P,3));g.setAttribute("normal",new THREE.BufferAttribute(N,3));g.setIndex(new THREE.BufferAttribute(I,1));return g;}
+
+let rq=false;
+function req(){if(rq||!V)return;rq=true;requestAnimationFrame(frame);}
+function frame(){rq=false;if(!V)return;
+ if(V.anim){const a=V.anim;const k=Math.min(1,(performance.now()-a.t0)/a.dur);const e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+  V.cam.position.lerpVectors(a.p0,a.p1,e);V.ctl.target.lerpVectors(a.q0,a.q1,e);if(k>=1)V.anim=null;}
+ const moving=V.ctl.update();V.R.render(V.S,V.cam);labels();
+ if(V.anim||moving)req();}
+function flyTo(f){if(!V||!f)return;const az=(f.az??180)*Math.PI/180,el=(f.el??5)*Math.PI/180,d=f.d;
+ const t=new THREE.Vector3(...f.t);const p=new THREE.Vector3(t.x+d*Math.cos(el)*Math.sin(az),t.y+d*Math.sin(el),t.z+d*Math.cos(el)*Math.cos(az));
+ V.anim={t0:performance.now(),dur:650,p0:V.cam.position.clone(),p1:p,q0:V.ctl.target.clone(),q1:t};req();}
+function flyToStruct(id){const c=V.ctr[id];if(!c)return;
+ const dir=V.cam.position.clone().sub(V.ctl.target).normalize();
+ let d=Math.min(2.4,Math.max(0.28,c.r*3.0));
+ if(V.scope&&FOCUS[V.scope]&&c.r>0.35){flyTo(FOCUS[V.scope]);return;}
+ const p=c.c.clone().add(dir.multiplyScalar(d));V.anim={t0:performance.now(),dur:650,p0:V.cam.position.clone(),p1:p,q0:V.ctl.target.clone(),q1:c.c.clone()};req();}
+
+function visibleOf(id){const s=STRUCT[id];if(!s)return false;const t=s.type;
+ if(id==="skin")return V.show.S;
+ if(!V.show[t])return false;
+ if(t==="M"&&s.layer&&s.layer<=V.peel&&id!==V.sel)return false;
+ if(V.onlySel&&V.sel&&t!=="B"&&id!==V.sel)return false;
+ if(V.scopeOn&&V.scope&&t!=="B"&&id!==V.sel&&!(REGION_IDS[V.scope]||new Set()).has(id))return false;
+ return true;}
+function applyVis(){if(!V)return;
+ const sel=V.sel,selT=sel&&STRUCT[sel].type;
+ Object.entries(V.objs).forEach(([id,m])=>{
+  m.visible=visibleOf(id);const b=m.material.userData.base;const mt=m.material;
+  mt.color.copy(b.color);mt.emissive.setHex(0);mt.emissiveIntensity=1;mt.opacity=b.opacity;mt.transparent=b.transparent;mt.depthWrite=b.depthWrite;
+  if(sel){
+   if(id===sel){mt.color.copy(b.color).lerp(new THREE.Color(HL),.55);mt.emissive.set(HL);mt.emissiveIntensity=.28;mt.opacity=1;mt.transparent=false;mt.depthWrite=true;}
+   else if(STRUCT[id].type==="M"||STRUCT[id].type==="C"){if(selT!=="B"){mt.transparent=true;mt.opacity=selT==="M"?.35:.22;mt.depthWrite=false;}}
+  }
+  mt.needsUpdate=true;});
+ document.querySelectorAll("#v3list .li").forEach(b=>b.classList.toggle("off",!visibleOf(b.dataset.id)));
+ req();}
+
+function select(id,fly){V.sel=id&&STRUCT[id]?id:null;applyVis();info();
+ document.querySelectorAll("#v3list .li").forEach(b=>b.classList.toggle("on",b.dataset.id===V.sel));
+ const on=document.querySelector("#v3list .li.on");if(on)on.scrollIntoView({block:"nearest"});
+ if(V.sel&&fly)flyToStruct(V.sel);}
+function setScope(rid,on){V.scope=rid||null;V.scopeOn=!!(rid&&on);
+ $("#v3scopeWrap").hidden=!V.scope;if(V.scope){$("#v3scopeName").textContent=REG[V.scope].name;$("#v3scope").checked=V.scopeOn;}
+ $("#v3regionBtn").hidden=!V.scope;buildList();applyVis();}
+
+function info(){const box=$("#v3info");
+ if(!V.sel){box.innerHTML=`<p class="v3hint">${V.scope?`<b>${esc(REG[V.scope].name)}</b><br>`:""}Tippe eine Struktur im Modell oder in der Liste an. Ziehen dreht das Modell, Scrollen oder Pinch zoomt.</p>
+  <div class="v3regs" style="margin-top:10px">${[["M","Muskeln"],["N","Nerven"],["A","Arterien"],["V","Venen"],["B","Knochen"]].map(([t,l])=>`<span class="chip" style="cursor:default"><i class="dot" style="background:${DOT[t]}"></i>${l}</span>`).join("")}</div>`;return;}
+ const s=STRUCT[V.sel];const men=MENTIONS[s.id]||[];
+ const regs=[...new Set(men.map(m=>m.r))];
+ const quotes=men.slice(0,8).map(m=>`<div class="quote">${link(m.text,m.r,false)}<small>${esc(REG[m.r].name)}</small></div>`).join("");
+ const schem=s.path?`<p class="note" style="margin-top:8px">Verlauf schematisch eingezeichnet.</p>`:(s.id==="latissimus"?`<p class="note" style="margin-top:8px">Muskelplatte nach dem Ursprung und Ansatz im Skript modelliert.</p>`:"");
+ box.innerHTML=`<div class="v3type t-${s.type}">${TYPE_DE[s.type]}</div><h3>${esc(s.label)}</h3>
+  ${regs.length?`<div class="v3regs">${regs.map(r=>`<button class="chip" data-reg="${r}">${esc(REG[r].name)}</button>`).join("")}</div>`:""}
+  ${quotes?`<div class="eyebrow2" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted);margin-top:6px">Aus dem Skript</div>${quotes}`:`<p class="v3hint">Im Skript nicht näher beschrieben.</p>`}
+  ${schem}`;
+}
+function buildList(){
+ const q=($("#v3search").value||"").trim().toLowerCase();
+ const ids=Object.keys(STRUCT).filter(id=>id!=="skin").filter(id=>{
+  if(V&&V.scopeOn&&V.scope&&!(REGION_IDS[V.scope]||new Set()).has(id))return false;
+  return !q||STRUCT[id].label.toLowerCase().includes(q);});
+ const by={};ids.forEach(id=>(by[STRUCT[id].type]=by[STRUCT[id].type]||[]).push(id));
+ $("#v3list").innerHTML="MNAVCB".split("").filter(t=>by[t]).map(t=>`<h4><i class="dot" style="background:${DOT[t]}"></i>${TYPE_PL[t]} <small>${by[t].length}</small></h4>`+
+  by[t].sort((a,b)=>STRUCT[a].label.localeCompare(STRUCT[b].label,"de")).map(id=>`<button class="li${V&&V.sel===id?" on":""}${V&&!visibleOf(id)?" off":""}" data-id="${id}">${esc(STRUCT[id].label)}</button>`).join("")).join("")||`<p class="v3hint" style="padding:8px">Nichts gefunden.</p>`;
+}
+function bindUI(){
+ $("#v3list").addEventListener("click",e=>{const b=e.target.closest(".li");if(!b)return;const id=b.dataset.id;
+  if(!V.show[STRUCT[id].type]){V.show[STRUCT[id].type]=true;syncTypeBtns();}
+  select(V.sel===id?null:id,true);});
+ $("#v3info").addEventListener("click",e=>{const r=e.target.closest("[data-reg]");if(r){$("#v3close").click();show(r.dataset.reg,true);return;}
+  const s=e.target.closest("[data-s]");if(s)select(s.dataset.s,true);});
+ $("#v3search").addEventListener("input",buildList);
+ $("#v3scope").addEventListener("change",e=>{V.scopeOn=e.target.checked;buildList();applyVis();});
+ document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>{const v=b.dataset.view;
+  if(v==="reset")flyTo({t:[0,0.9,0],d:3.2,...VIEWS.back});
+  else if(v==="region"){V.scope&&flyTo(FOCUS[V.scope]);}
+  else{const c=V.sel?V.ctr[V.sel]:null;const t=c&&c.r<0.35?c.c.toArray():V.ctl.target.toArray();const d=V.cam.position.distanceTo(V.ctl.target);flyTo({t,d,...VIEWS[v]});}});
+ document.querySelectorAll("[data-type]").forEach(b=>b.onclick=()=>{const t=b.dataset.type;V.show[t]=!V.show[t];if(t==="M")V.show.C=V.show.M;syncTypeBtns();buildList();applyVis();});
+ $("#v3only").onclick=e=>{V.onlySel=!V.onlySel;e.currentTarget.setAttribute("aria-pressed",V.onlySel);applyVis();};
+ $("#v3peel").addEventListener("input",e=>{V.peel=+e.target.value;$("#v3peelV").textContent=["alle","ohne 1.","ohne 1.–2.","nur tiefste"][V.peel];applyVis();});
+ // Picking
+ const ray=new THREE.Raycaster(),ptr=new THREE.Vector2();let down=null;
+ const pick=(ev)=>{const r=V.R.domElement.getBoundingClientRect();ptr.set((ev.clientX-r.left)/r.width*2-1,-(ev.clientY-r.top)/r.height*2+1);ray.setFromCamera(ptr,V.cam);
+  const cand=Object.entries(V.objs).filter(([id,m])=>m.visible&&id!=="skin"&&!(m.material.transparent&&m.material.opacity<.4)).map(([,m])=>m);
+  const hit=ray.intersectObjects(cand,false)[0];return hit?hit.object.userData.id:null;};
+ const cv=V.R.domElement;
+ cv.addEventListener("pointerdown",e=>{down={x:e.clientX,y:e.clientY};});
+ cv.addEventListener("pointerup",e=>{if(!down)return;const moved=Math.hypot(e.clientX-down.x,e.clientY-down.y);down=null;if(moved>6)return;const id=pick(e);select(id,false);});
+ let hp=null;cv.addEventListener("pointermove",e=>{if(e.pointerType!=="mouse"||e.buttons)return;hp=e;if(!hp._q){requestAnimationFrame(()=>{const id=pick(hp);const tip=$("#v3tip");
+  if(id){tip.hidden=false;tip.textContent=STRUCT[id].label;const r=V.stage.getBoundingClientRect();tip.style.left=(hp.clientX-r.left+14)+"px";tip.style.top=(hp.clientY-r.top+10)+"px";}else tip.hidden=true;});}});
+ cv.addEventListener("pointerleave",()=>$("#v3tip").hidden=true);
+ syncTypeBtns();
+}
+function syncTypeBtns(){document.querySelectorAll("[data-type]").forEach(b=>b.setAttribute("aria-pressed",!!V.show[b.dataset.type]));}
+function labels(){
+ const P=(x,y,z)=>{const v=new THREE.Vector3(x,y,z).project(V.cam);const w=V.stage.clientWidth,h=V.stage.clientHeight;return [(v.x+1)/2*w,(1-v.y)/2*h,v.z];};
+ const lr=$("#lblR"),ll=$("#lblL");const a=P(-0.42,1.0,0),b=P(0.42,1.0,0);
+ const far=V.cam.position.distanceTo(V.ctl.target)>1.4;
+ lr.hidden=ll.hidden=!far;lr.style.transform=`translate(${a[0]-20}px,${a[1]}px)`;ll.style.transform=`translate(${b[0]-20}px,${b[1]}px)`;
+ const sl=$("#lblSel");if(V.sel&&V.ctr[V.sel]){const c=V.ctr[V.sel].c;const p=P(c.x,c.y,c.z);sl.hidden=!(p[2]<1);sl.innerHTML=`${esc(STRUCT[V.sel].label)}`;sl.style.left=p[0]+"px";sl.style.top=p[1]+"px";}else sl.hidden=true;
+}
+</script>
+</body></html>
